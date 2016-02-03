@@ -1,0 +1,48 @@
+<table class="ui selectable striped celled table">
+ <thead>
+   <tr>
+     <th>Products</th>
+     <th>Price</th>
+     <!-- <th>Email</th>
+     <th>Postal Address</th>
+     <th>Actions</th> -->
+   </tr>
+ </thead>
+ <tbody>
+   <% @products.order('title').each do |product| %>
+   <tr>
+       <td><div class="card">
+           <div class="ui card">
+           <div class="content">
+             <img class="ui avatar image" src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
+             <span class="text-center"><%= product.title %></span>
+           </div>
+           <div class="image">
+             <img src="http://lorempixel.com/499/499/technics" />
+           </div>
+           <div class="content">
+             <span class="right floated">
+                 <%= product.price %>
+               <i class="euro icon"></i>
+             </span>
+           </div>
+           <div class="extra">
+             Rating :
+                <%= rating_for product, "product", :half_show => true %>
+           </div>
+          
+         </div>
+     </td>
+     <td>
+         <h1>
+             <%= product.price %> <i class='euro icon'></i>
+         </h1>
+         <p class='button ui basic blue centered'>
+             Buy it now
+         </p>
+     </td>
+
+   </tr>
+   <% end %>
+ </tbody>
+</table>

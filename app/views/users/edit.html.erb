@@ -1,0 +1,103 @@
+<% if current_user != nil && current_user.role == 'ADMIN' ||  current_user == @user %>
+<%= form_for(@user, html: { method: :put }) do |f| %>
+<% if @user.errors.empty? %>
+<% else %>
+<div class="alert alert-warning fade in">
+  <%= user_error_messages! %>
+</div>
+<% end %>
+
+ <div class="container">
+      <div id="updatebox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+          <div class="panel panel-info" >
+                  <div class="panel-heading">
+                      <div class="panel-title">Edit profile</div>
+                  </div>
+
+                  <div style="padding-top:30px" class="panel-body" >
+
+                      <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+                      <form id="loginform" class="form-horizontal" role="form">
+
+                          <div style="margin-bottom: 25px" class="input-group">
+                                      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                      <!-- <input id="firstname" type="text" class="form-control" name="firstname" value="" placeholder="Firstname"> -->
+                                      <%= f.text_field :first_name, autofocus: true, :class => "form-control", placeholder: 'Firstname' %>
+                          </div>
+
+                          <div style="margin-bottom: 25px" class="input-group">
+                                      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                      <!-- <input id="lastname" type="text" class="form-control" name="lastname" value="" placeholder="Lastname"> -->
+                                      <%= f.text_field :last_name, :class => "form-control", placeholder: 'Lastname' %>
+                          </div>
+
+
+                          <div style="margin-bottom: 25px" class="input-group">
+                                      <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                      <!-- <input id="address" type="text" class="form-control" name="address" value="" placeholder="Address"> -->
+                                      <%= f.text_field :address, :class => "form-control", placeholder: 'Adress' %>
+                          </div>
+
+                          <div style="margin-bottom: 25px" class="input-group">
+                                      <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                      <!-- <input id="email" type="text" class="form-control" name="email" value="" placeholder="Email"> -->
+                                      <%= f.email_field :email, :class => "form-control", placeholder: 'Email' %>
+                          </div>
+
+                          <div style="margin-bottom: 25px" class="input-group">
+                                      <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                      <!-- <input id="password" type="password" class="form-control" name="password" placeholder="Password"> -->
+                                      <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: "Password  (leave blank if you don't want to change it)", required:true %>
+                                      <!-- <i>(leave blank if you don't want to change it)</i><br /> -->
+                          </div>
+
+                          <div style="margin-bottom: 25px" class="input-group">
+                                      <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                      <!-- <input id="password_confirm" type="password-confirm" class="form-control" name="password_confirm" placeholder="Password confirmation"> -->
+                                      <%= f.password_field :password_confirmation, autocomplete: "off", required:true, class:'form-control', placeholder:'Password confirmation'%>
+                          </div>
+
+                          <div style="margin-bottom: 25px" class="input-group">
+                                      <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                      <!-- <input id="password_confirm" type="password-confirm" class="form-control" name="password_confirm" placeholder="Password confirmation"> -->
+                                      <%= f.password_field :current_password, autocomplete: "off", required:true, class:'form-control', placeholder:'Current password  (current password needed to confirm your changes)' %>
+                          </div>
+
+                          <% if current_user.role == 'ADMIN' %>
+                          <div style="margin-bottom: 25px" class="input-group">
+                                      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                      <!-- <input id="password_confirm" type="password-confirm" class="form-control" name="password_confirm" placeholder="Password confirmation"> -->
+                                      <%= f.text_field :role, autocomplete: "off", required:true, class:'form-control', placeholder:'Role' %>
+                                      <!-- <%= f.select :role,[['USER','USER'],['ADMIN','ADMIN']] %> -->
+                                      <!-- <%= select_tag(:option, options_for_select([['ADMIN', 'ADMIN'], ['USER', 'ADMIN']], selected: :option )) %> -->
+
+                          </div>
+                          <% end %>
+
+                              <div style="margin-top:10px" class="form-group">
+                                  <!-- Button -->
+
+                                  <!-- <div class="col-sm-12 controls"> -->
+                                      <div class="actions">
+                                          <%= f.submit "Update", class: "button ui basic blue" %>
+                                      </div>
+
+                                  <!-- </div> -->
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+      </div>
+<% end %>
+<div id="deleteaccountbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+<h3>Delete account</h3>
+<%= link_to @user, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic button" do %> <i class="trash outline icon"></i><%= "Delete"  %><% end %>
+
+<%= link_to "Back", :back, :class=>  "ui blue basic button" %>
+</div>
+
+
+<%else%>
+<%= render file: 'public/404', status: 404, formats: [:html] %>
+<% end %>
