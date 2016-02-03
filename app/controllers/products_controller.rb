@@ -11,6 +11,7 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+      @user = User.find(@product.user_id)
   end
 
   # GET /products/new

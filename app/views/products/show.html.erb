@@ -18,7 +18,7 @@
   Rating :<%= rating_for @product, "product", :half_show => true %>
 </div>
 <div class="extra">
-    <%= link_to @product, :class=>  "ui blue circular basic button" do %> <i class="user icon"></i> <%= "Show"  %><% end %>
+    <%= link_to @user do %> <i class="user icon"></i> <%= @user.first_name %> <%= @user.last_name %> <% end %>
     <% if current_user != nil && current_user.role == 'ADMIN' || current_user != nil && current_user.id == @product.user_id %>
     <%= link_to edit_product_path(@product), :class=>  "ui blue basic circular button" do %> <i class="edit icon"></i><%= "Edit"  %><% end %>
     <%= link_to @product, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic circular button" do %> <i class="trash outline icon"></i><%= "Del"  %><% end %>

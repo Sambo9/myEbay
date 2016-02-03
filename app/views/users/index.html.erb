@@ -30,48 +30,6 @@
 
 
 
-<!-- <div class="ui five cards">
-    <% @users.order('last_name').each do |user| %>
-  <div class="card">
-    <div class="image">
-        <% if user.role == 'ADMIN' %>
-        <img src="http://semantic-ui.com/images/avatar/large/steve.jpg">
-      <% else %>
-        <img src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
-      <% end %>
-  </div>
-    <div class="content">
-      <div class="header"><%= user.first_name %> <%= user.last_name %></div>
-
-      <div class="description">
-        <%= user.address %>
-      </div>
-    </div>
-    <div class="extra content">
-      <span>
-        <i class="mail icon"></i>
-        <%= user.email %>
-      </span>
-      <br>
-      <span>
-        <%= user.created_at %>
-      </span>
-    </div>
-    <div class="extra">
-        Rating :
-           <%= rating_for user, "user", :half_show => true %>
-    </div>
-    <div class="extra">
-        <%= link_to user, :class=>  "ui blue circular basic button" do %> <i class="user icon"></i> <%= "Show"  %><% end %>
-        <% if current_user != nil && current_user.role == 'ADMIN' %>
-        <%= link_to edit_user_path(user), :class=>  "ui blue basic circular button" do %> <i class="edit icon"></i><%= "Edit"  %><% end %>
-        <%= link_to user, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic circular button" do %> <i class="trash outline icon"></i><%= "Del"  %><% end %>
-        <% end %>
-    </div>
-  </div>
-<% end %> -->
-
-
 <div class="ui special five cards">
     <% @users.order('last_name').each do |user| %>
   <div class="card">
