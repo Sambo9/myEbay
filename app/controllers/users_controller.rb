@@ -7,7 +7,7 @@ class UsersController < ApplicationController
         @products = Product.where(user_id: @user)
     end
     def index
-        @users = User.all
+        @users = User.paginate(:page => params[:page], :per_page => 9)
     end
     def edit
         # @user = User.find(params[:id])

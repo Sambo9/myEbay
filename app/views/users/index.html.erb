@@ -1,4 +1,5 @@
-<% @users = User.all %>
+
+<%= will_paginate @collection, renderer: BootstrapPagination::Rails %>
 
 <table class="ui selectable striped celled table">
  <thead>
@@ -7,6 +8,7 @@
      <th>First Name</th>
      <th>Email</th>
      <th>Postal Address</th>
+     <th>Rating</th>
      <th>Actions</th>
    </tr>
  </thead>
@@ -17,6 +19,9 @@
      <td><%= user.first_name %></td>
      <td><%= user.email %></td>
      <td><%= user.address %></td>
+     <td>
+        <%= rating_for user, "user", :half_show => true %>
+     </td>
      <td>
          <%= link_to user, :class=>  "ui blue circular basic button" do %> <i class="user icon"></i> <%= "Show"  %> <% end %>
          <% if current_user != nil && current_user.role == 'ADMIN' %>
@@ -30,6 +35,7 @@
  </tbody>
 </table>
 
+<%= will_paginate @collection, renderer: BootstrapPagination::Rails %>
 
 
 <div class="ui special five cards">
@@ -91,3 +97,5 @@
   </div>
   <% end %>
 </div>
+
+<%= will_paginate @collection, renderer: BootstrapPagination::Rails %>

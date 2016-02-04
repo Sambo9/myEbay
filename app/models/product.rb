@@ -1,4 +1,5 @@
 class Product < ActiveRecord::Base
+   include Categoryz3::Categorizable
     ratyrate_rateable "product"
     belongs_to :user
     validates :user, presence: true

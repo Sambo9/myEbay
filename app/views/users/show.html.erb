@@ -1,102 +1,117 @@
 <div class="ui link cards centered">
-  <div class="card">
-    <div class="image">
-        <% if @user.role == 'ADMIN' %>
-        <img src="http://semantic-ui.com/images/avatar/large/steve.jpg">
-      <% else %>
-        <img src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
-      <% end %>
-    </div>
-    <div class="content">
-      <div class="header"><%= @user.first_name %> <%= @user.last_name %></div>
-      <div class="meta">
-
+   <div class="card">
+      <div class="image">
+         <% if @user.role == 'ADMIN' %>
+         <img src="http://semantic-ui.com/images/avatar/large/steve.jpg">
+         <% else %>
+         <img src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
+         <% end %>
       </div>
-      <div class="description">
-        <%= @user.address %>
+      <div class="content">
+         <div class="header"><%= @user.first_name %> <%= @user.last_name %></div>
+         <div class="meta">
+
+         </div>
+         <div class="description">
+            <%= @user.address %>
+         </div>
       </div>
-    </div>
-    <div class="extra content">
-      <span>
-        <i class="mail icon"></i>
-        <%= @user.email %>
-      </span>
-      <br>
-      <span>
-        <%= @user.created_at.strftime("%d %b. %Y") %>
-      </span>
-    </div>
-    <div class="extra">
-        Rating :
-           <%= rating_for @user, "user", :half_show => true %>
-    </div>
-    </div>
-  </div>
+      <div class="extra content">
+         <span>
+            <i class="mail icon"></i>
+            <%= @user.email %>
+         </span>
+         <br>
+         <span>
+            <%= @user.created_at.strftime("%d %b. %Y") %>
+         </span>
+      </div>
+      <div class="extra">
+         Rating :
+         <%= rating_for @user, "user", :half_show => true %>
+      </div>
+   </div>
+</div>
 
 
-  <table class="ui selectable striped celled table">
+<table class="ui selectable striped celled table">
    <thead>
-     <tr>
-       <th>Title</th>
-       <th>Description</th>
-       <th>Price</th>
-       <th>
-           Actions
-       </th>
-     </tr>
+      <tr>
+         <th>
+            Image
+         </th>
+         <th>Title</th>
+         <th>Description</th>
+         <th>Price</th>
+         <th>
+            Rating
+         </th>
+         <th>
+            Actions
+         </th>
+      </tr>
    </thead>
    <tbody>
-     <% @products.order('title').each do |product| %>
-     <tr>
-         <td><%= product.title %></td>
-       <td><%= product.description %></td>
-       <td><%= product.price %></td>
-       <td>
-           <%= link_to product, :class=>  "ui blue circular basic button" do %> <i class="user icon"></i> <%= "Show"  %> <% end %>
-           <% if current_user != nil && current_user.role == 'ADMIN' || current_user != nil && current_user.id == product.user_id %>
-           <%= link_to edit_product_path(product), :class=>  "ui blue basic circular button" do %> <i class="edit icon"></i> <%= "Edit"  %> <% end %>
-           <%= link_to product, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic circular button" do %> <i class="trash outline icon"></i> <%= "Delete" %> <% end %></td>
-           <% end %>
-     </tr>
-     <% end %>
-   </tbody>
-  </table>
-
-
-  <div class="ui four cards">
       <% @products.order('title').each do |product| %>
-      <div class="ui card">
-      <div class="content">
-        <img class="ui avatar image" src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
-        <span class="text-center"><%= product.title %></span>
-      </div>
-      <div class="image">
-        <img src="http://lorempixel.com/499/499/technics" />
-      </div>
-      <div class="content">
-        <span class="right floated">
-            <%= product.price %>
-          <i class="euro icon"></i>
-        </span>
-      </div>
-      <div class="extra">
-        Rating :
-          <div class="ui star rating">
-              <i class="icon"></i>
-              <i class="icon"></i>
-              <i class="icon"></i>
-              <i class="icon"></i>
-              <i class="icon"></i>
-          </div>
-      </div>
-      <div class="extra">
-          <%= link_to product, :class=>  "ui blue circular basic button" do %> <i class="user icon"></i> <%= "Show"  %><% end %>
-          <% if current_user != nil && current_user.role == 'ADMIN' || current_user != nil && current_user.id == product.user_id%>
-          <%= link_to edit_product_path(product), :class=>  "ui blue basic circular button" do %> <i class="edit icon"></i><%= "Edit"  %><% end %>
-          <%= link_to product, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic circular button" do %> <i class="trash outline icon"></i><%= "Del"  %><% end %>
-          <% end %>
-      </div>
-    </div>
+      <tr>
+         <td>
+            <img src="<%= product.image %>" height="50" width="50" />
+         </td>
+         <td><%= product.title %></td>
+         <td><%= product.description %></td>
+         <td><%= product.price %></td>
+         <td>
+             <%= rating_for product, "product", :half_show => true %>
+         </td>
+         <td>
+            <%= link_to product, :class=>  "ui blue circular basic button" do %> <i class="user icon"></i> <%= "Show"  %> <% end %>
+            <% if current_user != nil && current_user.role == 'ADMIN' || current_user != nil && current_user.id == product.user_id %>
+            <%= link_to edit_product_path(product), :class=>  "ui blue basic circular button" do %> <i class="edit icon"></i> <%= "Edit"  %> <% end %>
+            <%= link_to product, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic circular button" do %> <i class="trash outline icon"></i> <%= "Delete" %> <% end %></td>
+            <% end %>
+         </tr>
+         <% end %>
+      </tbody>
+   </table>
 
-      <% end %>
-    </div>
+
+   <div class="ui special five cards">
+      <% @products.order('created_at').each do |product| %>
+      <div class="ui card">
+         <div class="extra">
+            <img class="ui avatar image" src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
+            <span class="text-center"><%= product.title %></span>
+         </div>
+         <div class="blurring dimmable image">
+            <div class="ui dimmer">
+               <div class="content">
+                  <div class="center">
+                     <div>Rating :
+                        <%= rating_for product, "product", :half_show => true %></div>
+                     </div>
+                  </div>
+               </div>
+               <img src="<%= product.image %>" />
+            </div>
+
+            <div class="extra">
+               Price : <strong class='right floated'><%= product.price %>
+                  <i class="euro icon"></i> </strong>
+               </div>
+               <div class="extra">
+                  Posted : <strong class='right floated'><%= product.created_at.strftime("%d %b. %Y") %> </strong>
+               </div>
+               <div class="extra">
+                  Rating :
+                  <%= rating_for product, "product", :half_show => true %>
+               </div>
+               <div class="extra">
+                  <%= link_to product, :class=>  "ui blue circular basic button" do %> <i class="user icon"></i> <%= "Show"  %><% end %>
+                  <% if current_user != nil && current_user == @user || current_user != nil && current_user.role == 'ADMIN' %>
+                  <%= link_to edit_product_path(product), :class=>  "ui blue basic circular button" do %> <i class="edit icon"></i><%= "Edit"  %><% end %>
+                  <%= link_to product, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic circular button" do %> <i class="trash outline icon"></i><%= "Del"  %><% end %>
+                  <% end %>
+               </div>
+            </div>
+            <% end %>
+         </div>
