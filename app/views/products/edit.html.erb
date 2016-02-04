@@ -1,4 +1,4 @@
-<% if current_user != nil && current_user.role == 'ADMIN' || current_user == @product.user_id %>
+<% if current_user != nil && current_user.role == 'ADMIN' || current_user.id == @product.user_id %>
 <%= form_for(@product, html: { method: :put }) do |f| %>
 <% if @product.errors.empty? %>
 <% else %>
@@ -8,7 +8,7 @@
 <% end %>
 
  <div class="container">
-      <div id="updatebox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+      <div id="updatebox" style="margin-top:50px;" class="mainbox col-md-9 col-sm-8 col-sm-offset-2">
           <div class="panel panel-info" >
                   <div class="panel-heading">
                       <div class="panel-title">Edit product</div>

@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
+  resources :categories do
+      collection do
+        get 'autocomplete'
+      end
+    end
+
   post '/rate' => 'rater#create', :as => 'rate'
-  
+
   resources :products
   get 'home/index'
   # get 'register' => 'devise/registrations/edit#register'

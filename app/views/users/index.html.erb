@@ -19,8 +19,10 @@
      <td><%= user.address %></td>
      <td>
          <%= link_to user, :class=>  "ui blue circular basic button" do %> <i class="user icon"></i> <%= "Show"  %> <% end %>
-         <% if current_user != nil && current_user.role == 'ADMIN' || current_user == user %>
+         <% if current_user != nil && current_user.role == 'ADMIN' %>
          <%= link_to edit_user_path(user), :class=>  "ui blue basic circular button" do %> <i class="edit icon"></i> <%= "Edit"  %> <% end %>
+         <% end %>
+         <% if current_user != nil && current_user.role == 'ADMIN' || current_user == user %>
          <%= link_to user, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic circular button" do %> <i class="trash outline icon"></i> <%= "Delete" %> <% end %></td>
          <% end %>
    </tr>
@@ -77,10 +79,10 @@
       </span>
       <br>
       <span>
-        <%= user.created_at %>
+        <%= user.created_at.strftime("%d %b. %Y") %>
       </span>
     </div>
-    <% if current_user != nil && current_user.role == 'ADMIN' || current_user == user %>
+    <% if current_user != nil && current_user.role == 'ADMIN' %>
     <div class="extra">
         <%= link_to edit_user_path(user), :class=>  "ui blue basic circular button" do %> <i class="edit icon center"></i><%= "Edit"  %><% end %>
     </div>

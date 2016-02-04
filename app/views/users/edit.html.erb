@@ -1,4 +1,4 @@
-<% if current_user != nil && current_user.role == 'ADMIN' ||  current_user == @user %>
+<% if current_user != nil && current_user.role == 'ADMIN'%>
 <%= form_for(@user, html: { method: :put }) do |f| %>
 <% if @user.errors.empty? %>
 <% else %>
@@ -8,7 +8,7 @@
 <% end %>
 
  <div class="container">
-      <div id="updatebox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+      <div id="updatebox" style="margin-top:50px;" class="mainbox col-md-9 col-sm-8 col-sm-offset-2">
           <div class="panel panel-info" >
                   <div class="panel-heading">
                       <div class="panel-title">Edit profile</div>
@@ -45,26 +45,22 @@
                                       <%= f.email_field :email, :class => "form-control", placeholder: 'Email' %>
                           </div>
 
-                          <div style="margin-bottom: 25px" class="input-group">
+                          <!-- <div style="margin-bottom: 25px" class="input-group">
                                       <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                      <!-- <input id="password" type="password" class="form-control" name="password" placeholder="Password"> -->
                                       <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: "Password  (leave blank if you don't want to change it)", required:true %>
-                                      <!-- <i>(leave blank if you don't want to change it)</i><br /> -->
                           </div>
 
                           <div style="margin-bottom: 25px" class="input-group">
                                       <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                      <!-- <input id="password_confirm" type="password-confirm" class="form-control" name="password_confirm" placeholder="Password confirmation"> -->
                                       <%= f.password_field :password_confirmation, autocomplete: "off", required:true, class:'form-control', placeholder:'Password confirmation'%>
                           </div>
 
                           <div style="margin-bottom: 25px" class="input-group">
                                       <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                      <!-- <input id="password_confirm" type="password-confirm" class="form-control" name="password_confirm" placeholder="Password confirmation"> -->
                                       <%= f.password_field :current_password, autocomplete: "off", required:true, class:'form-control', placeholder:'Current password  (current password needed to confirm your changes)' %>
-                          </div>
+                          </div> -->
 
-                          <% if current_user.role == 'ADMIN' %>
+                          <!-- <% if current_user.role == 'ADMIN' %> -->
                           <div style="margin-bottom: 25px" class="input-group">
                                       <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                       <!-- <input id="password_confirm" type="password-confirm" class="form-control" name="password_confirm" placeholder="Password confirmation"> -->
@@ -73,7 +69,7 @@
                                       <!-- <%= select_tag(:option, options_for_select([['ADMIN', 'ADMIN'], ['USER', 'ADMIN']], selected: :option )) %> -->
 
                           </div>
-                          <% end %>
+                          <!-- <% end %> -->
 
                               <div style="margin-top:10px" class="form-group">
                                   <!-- Button -->

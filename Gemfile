@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+gem 'jquery-ui-rails'
+gem 'rails4-autocomplete'
+gem 'awesome_nested_set'
 gem 'ratyrate'
 gem 'devise'
 gem 'bootstrap-sass', '~> 3.3.6'
