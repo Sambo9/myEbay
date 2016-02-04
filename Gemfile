@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
+gem 'ancestry', '~> 2.1'
 gem 'will_paginate-bootstrap'
 gem 'will_paginate', '~> 3.0.6'
 gem 'faker', '~> 1.6', '>= 1.6.1'
-gem 'categoryz3'
 gem 'jquery-ui-rails'
 gem 'rails4-autocomplete'
 gem 'ratyrate', :github => 'wazery/ratyrate'

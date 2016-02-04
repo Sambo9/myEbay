@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160204140653334323) do
+ActiveRecord::Schema.define(version: 20160204180517) do
 
   create_table "average_caches", force: :cascade do |t|
     t.integer  "rater_id",      limit: 4
@@ -22,44 +22,14 @@ ActiveRecord::Schema.define(version: 20160204140653334323) do
     t.datetime "updated_at"
   end
 
-  create_table "categoryz3_categories", force: :cascade do |t|
-    t.string   "name",              limit: 255
-    t.integer  "parent_id",         limit: 4
-    t.integer  "items_count",       limit: 4,   default: 0
-    t.integer  "child_items_count", limit: 4,   default: 0
-    t.integer  "childrens_count",   limit: 4,   default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "categories", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "ancestry",   limit: 255
   end
 
-  add_index "categoryz3_categories", ["name"], name: "index_categoryz3_categories_on_name", using: :btree
-  add_index "categoryz3_categories", ["parent_id"], name: "index_categoryz3_categories_on_parent_id", using: :btree
-
-  create_table "categoryz3_child_items", force: :cascade do |t|
-    t.integer  "category_id",        limit: 4,   null: false
-    t.integer  "categorizable_id",   limit: 4,   null: false
-    t.string   "categorizable_type", limit: 255, null: false
-    t.integer  "master_item_id",     limit: 4,   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "categoryz3_child_items", ["categorizable_type", "categorizable_id"], name: "child_items_categorizable_idx", using: :btree
-  add_index "categoryz3_child_items", ["category_id", "categorizable_type", "categorizable_id", "master_item_id"], name: "child_items_unq_idx", unique: true, using: :btree
-  add_index "categoryz3_child_items", ["category_id", "created_at"], name: "index_categoryz3_child_items_on_category_id_and_created_at", using: :btree
-  add_index "categoryz3_child_items", ["master_item_id"], name: "index_categoryz3_child_items_on_master_item_id", using: :btree
-
-  create_table "categoryz3_items", force: :cascade do |t|
-    t.integer  "category_id",        limit: 4,   null: false
-    t.integer  "categorizable_id",   limit: 4,   null: false
-    t.string   "categorizable_type", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "categoryz3_items", ["categorizable_type", "categorizable_id"], name: "items_categorizable_idx", using: :btree
-  add_index "categoryz3_items", ["category_id", "categorizable_type", "categorizable_id"], name: "items_unq_idx", unique: true, using: :btree
-  add_index "categoryz3_items", ["category_id", "created_at"], name: "index_categoryz3_items_on_category_id_and_created_at", using: :btree
+  add_index "categories", ["ancestry"], name: "index_categories_on_ancestry", using: :btree
 
   create_table "overall_averages", force: :cascade do |t|
     t.integer  "rateable_id",   limit: 4
