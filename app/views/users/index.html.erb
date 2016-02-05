@@ -1,105 +1,107 @@
 <h2 class="ui center aligned icon header">
-  <i class="circular users icon"></i>
-  Users
+   <i class="circular users icon"></i>
+   Users
 </h2>
 
-<%= will_paginate @collection, renderer: BootstrapPagination::Rails %>
+<%= will_paginate @collection, renderer: BootstrapPagination::Rails, inner_window: 1, outter_window: 1 %>
 
 <table class="ui selectable striped celled table">
- <thead>
-   <tr>
-     <th>Last Name</th>
-     <th>First Name</th>
-     <th>Email</th>
-     <th>Postal Address</th>
-     <th>Rating</th>
-     <th>Actions</th>
-   </tr>
- </thead>
- <tbody>
-   <% @users.order('last_name').each do |user| %>
-   <tr>
-       <td><%= user.last_name %></td>
-     <td><%= user.first_name %></td>
-     <td><%= user.email %></td>
-     <td><%= user.address %></td>
-     <td>
-        <%= rating_for user, "user", :half_show => true %>
-     </td>
-     <td>
-         <%= link_to user, :class=>  "ui blue circular basic button" do %> <i class="user icon"></i> <%= "Show"  %> <% end %>
-         <% if current_user != nil && current_user.role == 'ADMIN' %>
-         <%= link_to edit_user_path(user), :class=>  "ui green basic circular button" do %> <i class="edit icon"></i> <%= "Edit"  %> <% end %>
+   <thead>
+      <tr>
+         <th>Last Name</th>
+         <th>First Name</th>
+         <th>Email</th>
+         <th>Postal Address</th>
+         <th>Rating</th>
+         <th>Actions</th>
+      </tr>
+   </thead>
+   <tbody>
+      <% @users.order('last_name').each do |user| %>
+      <tr>
+         <td><%= user.last_name %></td>
+         <td><%= user.first_name %></td>
+         <td><%= user.email %></td>
+         <td><%= user.address %></td>
+         <td>
+            <%= rating_for user, "user", :half_show => true %>
+         </td>
+         <td>
+            <%= link_to user, :class=>  "ui blue circular basic button" do %> <i class="unhide icon"></i> <%= "Show"  %> <% end %>
+            <% if current_user != nil && current_user.role == 'ADMIN' %>
+            <%= link_to edit_user_path(user), :class=>  "ui green basic circular button" do %> <i class="edit icon"></i> <%= "Edit"  %> <% end %>
+            <% end %>
+            <% if current_user != nil && current_user.role == 'ADMIN' || current_user == user %>
+            <%= link_to user, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic circular button" do %> <i class="trash outline icon"></i> <%= "Delete" %> <% end %></td>
+            <% end %>
+         </tr>
          <% end %>
-         <% if current_user != nil && current_user.role == 'ADMIN' || current_user == user %>
-         <%= link_to user, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic circular button" do %> <i class="trash outline icon"></i> <%= "Delete" %> <% end %></td>
+      </tbody>
+   </table>
+
+   <%= will_paginate @collection, renderer: BootstrapPagination::Rails, inner_window: 1, outter_window: 1 %>
+
+
+   <div class="ui special five cards">
+      <% @users.order('last_name').each do |user| %>
+      <div class="card">
+         <div class="blurring dimmable image">
+            <div class="ui dimmer">
+               <div class="content">
+                  <div class="center">
+                     <div>Rating :
+                        <%= rating_for user, "user", :half_show => true %></div>
+                     </div>
+                  </div>
+               </div>
+               <% if user.role == 'ADMIN' %>
+               <img src="http://semantic-ui.com/images/avatar/large/steve.jpg">
+               <% else %>
+               <img src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
+               <% end %>
+            </div>
+            <div class=" dimmable image">
+               <div class="ui inverted dimmer">
+                  <div class="content">
+                     <div class="center">
+                        <%= link_to user, :class=>  "ui blue circular basic button" do %> <i class="unhide icon"></i> <%= "Show"  %><% end %>
+                     </div>
+                  </div>
+               </div>
+               <div class="content">
+                  <br>
+                  <p class='text-center'>Profile</p>
+                  <br>
+               </div>
+            </div>
+            <div class="content">
+               <%= link_to user do %>
+               <div class="header"><%= user.first_name %> <%= user.last_name %></div>
+               <% end %>
+               <div class="content">
+                  <%= user.address %>
+               </div>
+            </div>
+            <div class="extra">
+               <span>
+                  <i class="mail icon"></i>
+                  <%= user.email %>
+               </span>
+               <br>
+               <span>
+                  <%= user.created_at.strftime("%d %b. %Y") %>
+               </span>
+            </div>
+            <% if current_user != nil && current_user.role == 'ADMIN' %>
+            <div class="extra">
+               <p class='text-center'>
+                  <%= link_to edit_user_path(user), :class=>  "ui green basic circular button center" do %> <i class="edit icon"></i><%= "Edit"  %><% end %>
+               </p>
+            </div>
+            <% end %>
+
+         </div>
          <% end %>
-   </tr>
-   <% end %>
- </tbody>
-</table>
-
-<%= will_paginate @collection, renderer: BootstrapPagination::Rails %>
-
-
-<div class="ui special five cards">
-    <% @users.order('last_name').each do |user| %>
-  <div class="card">
-    <div class="blurring dimmable image">
-      <div class="ui dimmer">
-        <div class="content">
-          <div class="center">
-            <div>Rating :
-               <%= rating_for user, "user", :half_show => true %></div>
-          </div>
-        </div>
       </div>
-      <% if user.role == 'ADMIN' %>
-      <img src="http://semantic-ui.com/images/avatar/large/steve.jpg">
-    <% else %>
-      <img src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
-    <% end %>
-    </div>
-    <div class=" dimmable image">
-      <div class="ui inverted dimmer">
-        <div class="content">
-          <div class="center">
-              <%= link_to user, :class=>  "ui blue circular basic button" do %> <i class="user icon"></i> <%= "Show"  %><% end %>
-          </div>
-        </div>
-      </div>
-    <div class="extra">
-        <br>
-        <p class='text-center'>Profile</p>
-        <br>
-    </div>
-    </div>
-    <div class="content">
-        <%= link_to user do %>
-      <div class="header"><%= user.first_name %> <%= user.last_name %></div>
-      <% end %>
-      <div class="description">
-        <%= user.address %>
-      </div>
-    </div>
-    <div class="extra content">
-      <span>
-        <i class="mail icon"></i>
-        <%= user.email %>
-      </span>
-      <br>
-      <span>
-        <%= user.created_at.strftime("%d %b. %Y") %>
-      </span>
-    </div>
-    <% if current_user != nil && current_user.role == 'ADMIN' %>
-    <div class="extra">
-        <%= link_to edit_user_path(user), :class=>  "ui green basic circular button" do %> <i class="edit icon center"></i><%= "Edit"  %><% end %>
-    </div>
-     <% end %>
 
-  </div>
-  <% end %>
-</div>
-
-<%= will_paginate @collection, renderer: BootstrapPagination::Rails %>
+      <%= will_paginate @collection, renderer: BootstrapPagination::Rails, inner_window: 1, outter_window: 1 %>

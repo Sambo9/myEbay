@@ -5,7 +5,6 @@
   <%end %>
 </h2>
 
-<%= will_paginate @products, renderer: BootstrapPagination::Rails %>
 
 <table class="ui selectable striped celled table">
    <thead>
@@ -21,7 +20,7 @@
       </tr>
    </thead>
    <tbody>
-      <% @products.order('title').each do |product| %>
+      <% @products.each do |product| %>
       <tr>
          <td>
             <img src="<%= product.image %>" height="50" width="50" />
@@ -42,5 +41,3 @@
          <% end %>
       </tbody>
    </table>
-
-<%= will_paginate @products, renderer: BootstrapPagination::Rails %>

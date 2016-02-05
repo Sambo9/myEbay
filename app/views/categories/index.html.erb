@@ -29,8 +29,9 @@
       <tr>
          <td><%= category.name %></td>
          <td>
-            <% if current_user != nil && current_user.role == 'ADMIN' || current_user != nil && current_user.id == product.user_id %>
+
             <%= link_to new_category_path(:parent_id => category), class:'ui basic circular button blue' do %> <i class="plus icon"></i> <%= "Add SubCategory"  %><% end %>
+         <% if current_user != nil && current_user.role == 'ADMIN' %>
             <%= link_to edit_category_path(category), :class=>  "ui green basic circular button" do %> <i class="edit icon"></i> <%= "Edit"  %> <% end %>
             <%= link_to category, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic circular button" do %> <i class="trash outline icon"></i> <%= "Delete" %> <% end %>
          </td>

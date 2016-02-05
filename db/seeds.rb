@@ -7,26 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-29.times do |n|
-  last_name  = Faker::Name.last_name
-  first_name = Faker::Name.first_name
-  address = Faker::Address.street_address + " " + Faker::Address.city + " " + Faker::Address.postcode
-  email = Faker::Internet.email(first_name + "." + last_name)
-  # email = last_name + "." + first_name + "@" + Faker::Company.name + ".com"
-  # puts email
-  password = "password"
-  role = 'USER'
-  User.create!(last_name:  last_name,
-            first_name: first_name,
-            address: address,
-               email: email,
-               password:              password,
-               password_confirmation: password,
-               role: role)
-end
 
-
-29.times do |n|
+1.times do |n|
   title  = Faker::Commerce.product_name
   description = Faker::Commerce.product_name + " " + Faker::Commerce.department(5)
   price = Faker::Commerce.price

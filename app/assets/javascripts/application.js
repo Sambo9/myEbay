@@ -29,16 +29,14 @@
 //= require jquery.raty
 //= require ratyrate
 
-
 $( document ).ready(function(){
 $('.special.cards .image').dimmer({
   on: 'hover'
 });
 });
 
-
 $( document ).ready(function() {
-  $('.search-query').bind('railsAutocomplete.select', function(event, data ){
+  $('.search-query').bind('railsAutocomplete.select', function(event, data){
   $('.search-me').trigger('click')
   });
 });

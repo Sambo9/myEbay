@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-     @products = Product.paginate(:page => params[:page], :per_page => 9).order('created_at DESC')
+     @products = Product.order('created_at DESC').limit(9)
      @users = User.all
   end
 end
