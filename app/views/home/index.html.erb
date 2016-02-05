@@ -1,6 +1,8 @@
 <h2 class="ui center aligned icon header">
   <i class="home icon"></i>
-  Welcome <%= current_user.first_name %> !
+  Welcome <% if current_user != nil %>
+  <%= current_user.first_name %> !
+  <%end %>
 </h2>
 
 <%= will_paginate @products, renderer: BootstrapPagination::Rails %>

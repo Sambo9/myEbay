@@ -35,3 +35,10 @@ $('.special.cards .image').dimmer({
   on: 'hover'
 });
 });
+
+
+$( document ).ready(function() {
+  $('.search-query').bind('railsAutocomplete.select', function(event, data ){
+  $('.search-me').trigger('click')
+  });
+});

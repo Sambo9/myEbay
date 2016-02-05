@@ -4,7 +4,7 @@
     <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-9 col-sm-8 col-sm-offset-2">
         <div class="panel panel-info" >
             <div class="panel-heading">
-                <div class="panel-title">Sign Up</div>
+                <div class="panel-title">Product</div>
             </div>
 
             <div style="padding-top:30px" class="panel-body" >
@@ -27,6 +27,12 @@
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
                         <%= f.number_field :price, :class => "form-control", placeholder: 'Price' %>
+                    </div>
+
+                    <div style="margin-bottom: 25px" class="input-group">
+                       <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
+                       <div class="ui fluid input"><%= autocomplete_field_tag :category_id, params[:categories], autocomplete_category_name_products_path, {class: "search-query", placeholder: "Categories", type: "search"} %>
+                       </div>
                     </div>
 
 

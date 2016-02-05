@@ -24,9 +24,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="/users">Users list</a></li>
-            <li><a href="/products">Products list</a></li>
-            <li><a href="/categories">Categories list</a></li>
+            <li><a href="/users">Users</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/categories">Categories</a></li>
             <!-- <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -52,16 +52,26 @@
               <% if user_signed_in? %>
             <li>
                 <p class="navbar-text">
+                   <div class="ui compact menu inverted">
+      <div class="ui simple dropdown item inverted">
+        <%= current_user.first_name %>
+        <i class="dropdown icon ui inverted item"></i>
+        <div class="menu ui">
+          <div class="item"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'ui inverted' %></div>
+          <div class="item"><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'ui inverted'  %></div>
+        </div>
+      </div>
+    </div>
                 </p>
-                <p class="navbar-text">
+                <!-- <p class="navbar-text">
                  Logged in as <strong><%= current_user.email %></strong>
-                 </p>
-                 <p class="navbar-text">
+                 </p> -->
+                 <!-- <p class="navbar-text">
                  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %>
                 </p> |
              <p class="navbar-text">
                  <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-                 </p>
+                 </p> -->
                 <% else %>
                 <li>
                     <p class="navbar-text">

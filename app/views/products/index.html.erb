@@ -1,10 +1,16 @@
 <h2 class="ui center aligned icon header">
-  <i class="database icon"></i>
- Products
+   <i class="database icon"></i>
+   Products
 </h2>
 
-
 <p id="notice"><%= notice %></p>
+
+<!-- <div class="ui right labeled left icon input"><%= autocomplete_field_tag :category, params[:categories], autocomplete_category_name_products_path, {class: "search-query", placeholder: "Categories", type: "search"} %>
+   <i class="tags icon"></i>
+   <a class="ui tag label">
+     Add Category
+   </a>
+</div> -->
 
 <%= will_paginate @collection, renderer: BootstrapPagination::Rails %>
 
@@ -36,7 +42,7 @@
          <td>
             <%= link_to product, :class=>  "ui blue circular basic button" do %> <i class="user icon"></i> <%= "Show"  %> <% end %>
             <% if current_user != nil && current_user.role == 'ADMIN' || current_user != nil && current_user.id == product.user_id %>
-            <%= link_to edit_product_path(product), :class=>  "ui blue basic circular button" do %> <i class="edit icon"></i> <%= "Edit"  %> <% end %>
+            <%= link_to edit_product_path(product), :class=>  "ui green basic circular button" do %> <i class="edit icon"></i> <%= "Edit"  %> <% end %>
             <%= link_to product, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic circular button" do %> <i class="trash outline icon"></i> <%= "Delete" %> <% end %></td>
             <% end %>
          </tr>
@@ -52,10 +58,11 @@
 
    <div class="ui special five cards">
       <% @products.order('created_at').each do |product| %>
+      <% @user = User.find(product.user_id) %>
       <div class="ui card">
          <div class="extra">
-            <img class="ui avatar image" src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
             <span class="text-center"><%= product.title %></span>
+            <%= link_to @user, class:"right floated" do %><img class="ui avatar image" src="http://semantic-ui.com/images/avatar/large/elliot.jpg"><strong><%= @user.first_name %></span></strong><% end %>
          </div>
          <div class="blurring dimmable image">
             <div class="ui dimmer">
@@ -72,13 +79,14 @@
             <div class="extra">
                Price : <strong class='right floated'><%= product.price %>
                   <i class="euro icon"></i> </strong>
+                  <br>
+                  <strong class='right floated'><%= rating_for product, "product", :half_show => true %></strong>
                </div>
                <div class="extra">
                   Posted : <strong class='right floated'><%= product.created_at.strftime("%d %b. %Y") %> </strong>
                </div>
                <div class="extra">
-                  Rating :
-                  <%= rating_for product, "product", :half_show => true %>
+
                </div>
                <div class="extra">
                   <%= link_to product, :class=>  "ui blue circular basic button" do %> <i class="user icon"></i> <%= "Show"  %><% end %>

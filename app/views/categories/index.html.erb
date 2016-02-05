@@ -1,28 +1,45 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Categories</h1>
+<h2 class="ui center aligned icon header">
+   <i class="tags icon"></i>
+   Categories
+</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="4"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @categories.each do |category| %>
+<div class="ui right labeled left icon input"><%= autocomplete_field_tag :category, params[:categories], autocomplete_category_name_products_path, {class: "search-query", placeholder: "Categories", type: "search"} %>
+   <i class="tags icon"></i>
+   <a class="ui tag label">
+     Search Category
+   </a>
+</div>
+
+
+
+<table class="ui selectable striped celled table">
+   <thead>
       <tr>
-        <td><%= category.name %></td>
-        <td><%= link_to 'Create SubCategories', new_category_path(:parent_id => category) %></td>
-        <td><%= link_to 'Show', category %></td>
-        <td><%= link_to 'Edit', edit_category_path(category) %></td>
-        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+         <th>
+            Name
+         </th>
+         <th colspan="3">Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+   </thead>
+   <tbody>
+      <% @categories.order('name').each do |category| %>
+      <tr>
+         <td><%= category.name %></td>
+         <td>
+            <% if current_user != nil && current_user.role == 'ADMIN' || current_user != nil && current_user.id == product.user_id %>
+            <%= link_to new_category_path(:parent_id => category), class:'ui basic circular button blue' do %> <i class="plus icon"></i> <%= "Add SubCategory"  %><% end %>
+            <%= link_to edit_category_path(category), :class=>  "ui green basic circular button" do %> <i class="edit icon"></i> <%= "Edit"  %> <% end %>
+            <%= link_to category, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic circular button" do %> <i class="trash outline icon"></i> <%= "Delete" %> <% end %>
+         </td>
+            <% end %>
+         </tr>
+         <% end %>
+      </tbody>
+   </table>
 
-<br>
-
-<%= link_to 'New Category', new_category_path %>
+   <p>
+      <%= link_to new_category_path, class:'button ui basic inverted blue' do %> <i class="plus icon"></i> <%= "New category"  %><% end %>
+   </p>
