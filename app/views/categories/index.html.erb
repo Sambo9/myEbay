@@ -6,14 +6,6 @@
 </h2>
 
 
-<div class="ui right labeled left icon input"><%= autocomplete_field_tag :category, params[:categories], autocomplete_category_name_products_path, {class: "search-query", placeholder: "Categories", type: "search"} %>
-   <i class="tags icon"></i>
-   <a class="ui tag label">
-     Search Category
-   </a>
-</div>
-
-
 
 <table class="ui selectable striped celled table">
    <thead>
@@ -27,7 +19,7 @@
    <tbody>
       <% @categories.order('name').each do |category| %>
       <tr>
-         <td><%= category.name %></td>
+         <td><%= link_to Category.find(category.id).name, category_path(category.id) %></td>
          <td>
 
             <%= link_to new_category_path(:parent_id => category), class:'ui basic circular button blue' do %> <i class="plus icon"></i> <%= "Add SubCategory"  %><% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160204180517) do
+ActiveRecord::Schema.define(version: 20160208105131) do
 
   create_table "average_caches", force: :cascade do |t|
     t.integer  "rater_id",      limit: 4
@@ -24,12 +24,27 @@ ActiveRecord::Schema.define(version: 20160204180517) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255
+    t.string   "ancestry",   limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.string   "ancestry",   limit: 255
   end
 
   add_index "categories", ["ancestry"], name: "index_categories_on_ancestry", using: :btree
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "title",            limit: 50,    default: ""
+    t.text     "comment",          limit: 65535
+    t.integer  "commentable_id",   limit: 4
+    t.string   "commentable_type", limit: 255
+    t.integer  "user_id",          limit: 4
+    t.string   "role",             limit: 255,   default: "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["commentable_id"], name: "index_comments_on_commentable_id", using: :btree
+  add_index "comments", ["commentable_type"], name: "index_comments_on_commentable_type", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "overall_averages", force: :cascade do |t|
     t.integer  "rateable_id",   limit: 4
@@ -47,8 +62,10 @@ ActiveRecord::Schema.define(version: 20160204180517) do
     t.datetime "updated_at",                null: false
     t.integer  "user_id",     limit: 4
     t.string   "image",       limit: 255
+    t.integer  "category_id", limit: 4
   end
 
+  add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
   add_index "products", ["user_id"], name: "fk_rails_dee2631783", using: :btree
 
   create_table "rates", force: :cascade do |t|
@@ -98,5 +115,6 @@ ActiveRecord::Schema.define(version: 20160204180517) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "products", "categories"
   add_foreign_key "products", "users"
 end

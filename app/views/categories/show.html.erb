@@ -1,9 +1,45 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @category.name %>
-</p>
+<h3> Products in <%= @category.name %> </h3>
 
-<%= link_to 'Edit', edit_category_path(@category) %> |
-<%= link_to 'Back', categories_path %>
+<table class="ui selectable striped celled table">
+   <thead>
+      <tr>
+         <th>
+            Image
+         </th>
+         <th>Title</th>
+         <th>Description</th>
+         <th>Price</th>
+         <th>
+            Rating
+         </th>
+         <th>
+            Actions
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      <% @categories = Product.where(category_id: @category.id).paginate(page: params[:page], per_page: 9).each do |product| %>
+      <tr>
+         <td>
+            <img src="<%= product.image %>" height="50" width="50" />
+         </td>
+         <td><%= product.title %></td>
+         <td><%= product.description %></td>
+         <td><%= product.price %></td>
+         <td>
+             <%= rating_for product, "product", :half_show => true %>
+         </td>
+         <td>
+            <%= link_to product, :class=>  "ui blue circular basic button" do %> <i class="user icon"></i> <%= "Show"  %> <% end %>
+            <% if current_user != nil && current_user.role == 'ADMIN' || current_user != nil && current_user.id == product.user_id %>
+            <%= link_to edit_product_path(product), :class=>  "ui blue basic circular button" do %> <i class="edit icon"></i> <%= "Edit"  %> <% end %>
+            <%= link_to product, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic circular button" do %> <i class="trash outline icon"></i> <%= "Delete" %> <% end %></td>
+            <% end %>
+         </tr>
+         <% end %>
+      </tbody>
+   </table>
+
+   <%= will_paginate @categories, renderer: BootstrapPagination::Rails, inner_window: 1, outter_window: 1 %>

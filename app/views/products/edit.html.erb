@@ -3,62 +3,64 @@
 <% if @product.errors.empty? %>
 <% else %>
 <div class="alert alert-warning fade in">
-  <%= product_error_messages! %>
+   <%= product_error_messages! %>
 </div>
 <% end %>
 
- <div class="container">
-      <div id="updatebox" style="margin-top:50px;" class="mainbox col-md-9 col-sm-8 col-sm-offset-2">
-          <div class="panel panel-info" >
-                  <div class="panel-heading">
-                      <div class="panel-title">Edit product</div>
+<div class="container">
+   <div id="updatebox" style="margin-top:50px;" class="mainbox col-md-9 col-sm-8 col-sm-offset-2">
+      <div class="panel panel-info" >
+         <div class="panel-heading">
+            <div class="panel-title">Edit product</div>
+         </div>
+
+         <div style="padding-top:30px" class="panel-body" >
+
+            <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+            <form id="loginform" class="form-horizontal" role="form">
+
+               <div style="margin-bottom: 25px" class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
+                  <!-- <input id="firstname" type="text" class="form-control" name="firstname" value="" placeholder="Firstname"> -->
+                  <%= f.text_field :title, autofocus: true, :class => "form-control", placeholder: 'Title' %>
+               </div>
+
+               <div style="margin-bottom: 25px" class="input-group">
+                  <span class="input-group-addon"><i class="	glyphicon glyphicon-info-sign"></i></span>
+                  <!-- <input id="lastname" type="text" class="form-control" name="lastname" value="" placeholder="Lastname"> -->
+                  <%= f.text_field :description, :class => "form-control", placeholder: 'Description' %>
+               </div>
+
+
+               <div style="margin-bottom: 25px" class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
+                  <!-- <input id="address" type="text" class="form-control" name="address" value="" placeholder="Address"> -->
+                  <%= f.number_field :price, :class => "form-control", placeholder: 'Price' %>
+               </div>
+
+               <div style="margin-bottom: 25px" class="input-group">
+                  <%= select_tag(:category_id, options_for_select(@categories), :prompt => 'Select the category', class:'ui fluid select') %>
+               </div>
+               
+               <div style="margin-top:10px" class="form-group">
+                  <div class="actions">
+                     <%= f.submit "Edit", class: "button ui basic blue" %>
                   </div>
-
-                  <div style="padding-top:30px" class="panel-body" >
-
-                      <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-
-                      <form id="loginform" class="form-horizontal" role="form">
-
-                          <div style="margin-bottom: 25px" class="input-group">
-                                      <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
-                                      <!-- <input id="firstname" type="text" class="form-control" name="firstname" value="" placeholder="Firstname"> -->
-                                      <%= f.text_field :title, autofocus: true, :class => "form-control", placeholder: 'Title' %>
-                          </div>
-
-                          <div style="margin-bottom: 25px" class="input-group">
-                                      <span class="input-group-addon"><i class="	glyphicon glyphicon-info-sign"></i></span>
-                                      <!-- <input id="lastname" type="text" class="form-control" name="lastname" value="" placeholder="Lastname"> -->
-                                      <%= f.text_field :description, :class => "form-control", placeholder: 'Description' %>
-                          </div>
-
-
-                          <div style="margin-bottom: 25px" class="input-group">
-                                      <span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
-                                      <!-- <input id="address" type="text" class="form-control" name="address" value="" placeholder="Address"> -->
-                                      <%= f.number_field :price, :class => "form-control", placeholder: 'Price' %>
-                          </div>
-
-
-
-                              <div style="margin-top:10px" class="form-group">
-                                      <div class="actions">
-                                          <%= f.submit "Edit", class: "button ui basic blue" %>
-                                      </div>
-                              </div>
-                          </form>
-                      </div>
-                  </div>
+               </div>
+            </form>
+         </div>
       </div>
-<% end %>
-<div id="deleteproduct" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-<h3>Delete account</h3>
-<%= link_to @product, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic button" do %> <i class="trash outline icon"></i><%= "Delete"  %><% end %>
+   </div>
+   <% end %>
+   <div id="deleteproduct" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+      <h3>Delete account</h3>
+      <%= link_to @product, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic button" do %> <i class="trash outline icon"></i><%= "Delete"  %><% end %>
 
-<%= link_to "Back", :back, :class=>  "ui blue basic button" %>
-</div>
+      <%= link_to "Back", :back, :class=>  "ui blue basic button" %>
+   </div>
 
 
-<%else%>
-<%= render file: 'public/404', status: 404, formats: [:html] %>
-<% end %>
+   <%else%>
+   <%= render file: 'public/404', status: 404, formats: [:html] %>
+   <% end %>

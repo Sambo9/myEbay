@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
 
-
-   resources :products do
-      get :autocomplete_category_name, on: :collection
-   end
-
-   resources :categories
    post '/rate' => 'rater#create', :as => 'rate'
 
-   resources :products
+   resources :categories do
+      get :autocomplete_category_name, on: :collection
+   end
+   resources :products do
+      resources :comments
+   end
+
    get 'home/index'
    # get 'register' => 'devise/registrations/edit#register'
 

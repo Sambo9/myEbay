@@ -1,8 +1,8 @@
 class ProductsController < ApplicationController
    before_action :set_product, only: [:show, :edit, :update, :destroy]
    before_action :authorize_user, only: [:edit, :update, :destroy]
-
-   autocomplete :category, :name, :full => true
+   before_action :authorize_create, only: [:new]
+   
 
    # GET /products
    # GET /products.json
@@ -14,21 +14,27 @@ class ProductsController < ApplicationController
    # GET /products/1.json
    def show
       @user = User.find(@product.user_id)
+      @commentable = @product
+      @comments = @commentable.comments
+      @comment = Comment.new
    end
 
    # GET /products/new
    def new
       @product = Product.new
+      @categories = Category.all.map{|c| [ c.name, c.id ] }
    end
 
    # GET /products/1/edit
    def edit
+      @categories = Category.all.map{|c| [ c.name, c.id ] }
    end
 
    # POST /products
    # POST /products.json
    def create
       @product = Product.new(product_params)
+      @product.category_id = params[:category_id]
 
       respond_to do |format|
          if @product.save
@@ -44,6 +50,7 @@ class ProductsController < ApplicationController
    # PATCH/PUT /products/1
    # PATCH/PUT /products/1.json
    def update
+      @product.category_id = params[:category_id]
       respond_to do |format|
          if @product.update(product_params)
             format.html { redirect_to @product, notice: 'Product was successfully updated.' }
@@ -83,6 +90,13 @@ class ProductsController < ApplicationController
    def authorize_user
       if !( current_user != nil && current_user.id == @product.user_id || current_user != nil && current_user.role == 'ADMIN')
          render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => true)
+      end
+   end
+
+
+   def authorize_create
+      if !( current_user != nil)
+         redirect_to '/users/sign_in', alert: 'You must be logged in first'
       end
    end
 end

@@ -12,31 +12,23 @@
 //
 //= require jquery
 //= require jquery_ujs
+
 // require turbolinks
 //= require_tree .
 
-
-//= require jquery
-//= require jquery_ujs
-//= require jquery-ui
-//= require autocomplete-rails
-
-
-//= require jquery-ui
-//= require semantic-ui
-
-
 //= require jquery.raty
 //= require ratyrate
+
+//= require jquery-ui
+//= require autocomplete-rails
+//= require jquery-ui/autocomplete
+//= require semantic-ui
+//= require bootstrap-sprockets
+
+
 
 $( document ).ready(function(){
 $('.special.cards .image').dimmer({
   on: 'hover'
 });
-});
-
-$( document ).ready(function() {
-  $('.search-query').bind('railsAutocomplete.select', function(event, data){
-  $('.search-me').trigger('click')
-  });
 });

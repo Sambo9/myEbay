@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
 
-gem 'rails4-autocomplete'
+gem 'rails-jquery-autocomplete', '~> 1.0', '>= 1.0.3'
+gem 'acts_as_commentable'
 gem 'ancestry', '~> 2.1'
 gem 'will_paginate-bootstrap'
 gem 'will_paginate', '~> 3.0.6'

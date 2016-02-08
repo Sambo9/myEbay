@@ -5,12 +5,7 @@
 
 <p id="notice"><%= notice %></p>
 
-<!-- <div class="ui right labeled left icon input"><%= autocomplete_field_tag :category, params[:categories], autocomplete_category_name_products_path, {class: "search-query", placeholder: "Categories", type: "search"} %>
-<i class="tags icon"></i>
-<a class="ui tag label">
-Add Category
-</a>
-</div> -->
+
 
 <%= will_paginate @collection, renderer: BootstrapPagination::Rails, inner_window: 1, outter_window: 1 %>
 
@@ -23,6 +18,7 @@ Add Category
          <th>Title</th>
          <th>Description</th>
          <th>Price</th>
+         <th>Category</th>
          <th>Rating</th>
          <th>Actions</th>
       </tr>
@@ -36,6 +32,9 @@ Add Category
          <td><%= product.title %></td>
          <td><%= product.description %></td>
          <td><%= product.price %></td>
+         <td>
+            <%= link_to Category.find(product.category_id).name, category_path(product.category_id) %>
+         </td>
          <td>
             <%= rating_for product, "product", :half_show => true %></div>
          </td>

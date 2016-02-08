@@ -87,10 +87,7 @@
       </div><!-- /.container-fluid -->
     </nav>
 
-    <%- flash.each do |k, v| %>
-        <div id="<%= k %>" class="alert alert-success fade in col-md-12"><%= v %></div>
-    <% end %>
-
+    <%= semantic_flash %>
 
 <%= yield %>
 
