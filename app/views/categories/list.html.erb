@@ -1,5 +1,5 @@
-<h3> Products in <%= @category.name %> </h3>
-
+<h3> Products in <%= @category_name %> </h3>
+<% @categories = Category.where(name: @category_name) %>
 <table class="ui selectable striped celled table">
    <thead>
       <tr>
@@ -18,7 +18,8 @@
       </tr>
    </thead>
    <tbody>
-      <% @categories = Product.where(category_id: @category.id).paginate(page: params[:page], per_page: 9).each do |product| %>
+      <% @categories.each do |c| %>
+      <% @list = Product.where(category_id: c.id).paginate(page: params[:page], per_page: 5).each do |product| %>
       <tr>
          <td>
             <img src="<%= product.image %>" height="50" width="50" />
@@ -37,7 +38,8 @@
             <% end %>
          </tr>
          <% end %>
-      </tbody>
-   </table>
+      <% end %>
+   </tbody>
+</table>
 
-   <%= will_paginate @categories, renderer: BootstrapPagination::Rails, inner_window: 1, outter_window: 1 %>
+<%= will_paginate @list, renderer: BootstrapPagination::Rails, inner_window: 1, outter_window: 1 %>

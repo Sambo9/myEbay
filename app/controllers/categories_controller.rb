@@ -10,6 +10,11 @@ class CategoriesController < ApplicationController
       @categories = Category.all
    end
 
+   def list
+      @category_name = params[:name]
+      render 'list'
+   end
+
    # GET /categories/1
    # GET /categories/1.json
    def show

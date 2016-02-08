@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       resources :comments
    end
 
+   get 'categories/list/:name' => 'categories#list', as: 'category_list'
+
    get 'home/index'
    # get 'register' => 'devise/registrations/edit#register'
 

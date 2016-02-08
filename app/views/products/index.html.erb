@@ -24,7 +24,7 @@
       </tr>
    </thead>
    <tbody>
-      <% @products.order('title').each do |product| %>
+      <% @products.order("created_at DESC").each do |product| %>
       <tr>
          <td>
             <img src="<%= product.image %>" height="50" width="50" />
@@ -33,7 +33,7 @@
          <td><%= product.description %></td>
          <td><%= product.price %></td>
          <td>
-            <%= link_to Category.find(product.category_id).name, category_path(product.category_id) %>
+            <%= link_to Category.find(product.category_id).name, category_list_path(Category.find(product.category_id).name) %>
          </td>
          <td>
             <% if current_user == @user %>
@@ -60,7 +60,7 @@
    <%= will_paginate @collection, renderer: BootstrapPagination::Rails, inner_window: 1, outter_window: 1 %>
 
    <div class="ui special five cards">
-      <% @products.order('created_at').each do |product| %>
+      <% @products.order("created_at DESC").each do |product| %>
       <% @user = User.find(product.user_id) %>
       <div class="ui card">
          <div class='extra content'>
@@ -68,7 +68,8 @@
                <div>
                   <%= link_to @user, class:"right floated" do %><img class="ui avatar image" src="http://semantic-ui.com/images/avatar/large/elliot.jpg"><strong><%= @user.first_name %></strong><% end %>
                </div>
-               <div class="text-center"><%= product.title %></div>
+               <div class="text-center"><%= product.title %>
+               </div>
             </div>
          </div>
          <div class="blurring dimmable image">
@@ -80,15 +81,17 @@
                         <%= rating_for product, "product", readonly: true, half_show: true %>
                         <% else %>
                         Rating :
-                        <%= rating_for product, "product", :half_show => true %></div>
+                        <%= rating_for product, "product", :half_show => true %>
                         <% end %>
                      </div>
-                  </div>
-               </div>
-               <img src='<%= product.image %>' />
-            </div>
 
-               <div class="extra">
+                     </div>
+                  </div>
+            </div>
+               <img src='<%= product.image %>' />
+         </div>
+
+            <div class="extra">
                Price : <strong class='right floated'><%= product.price %>
                   <i class="euro icon"></i> </strong>
                   <br>
@@ -112,8 +115,8 @@
                      <% end %>
                   </div>
                </div>
-      </div>
+            </div>
             <% end %>
-   </div>
+      </div>
 
          <%= will_paginate @collection, renderer: BootstrapPagination::Rails, inner_window: 1, outter_window: 1 %>
