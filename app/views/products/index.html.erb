@@ -36,7 +36,11 @@
             <%= link_to Category.find(product.category_id).name, category_path(product.category_id) %>
          </td>
          <td>
+            <% if current_user == @user %>
+            <%= rating_for product, "product", readonly: true, half_show: true %>
+            <% else %>
             <%= rating_for product, "product", :half_show => true %></div>
+            <% end %>
          </td>
          <td>
             <%= link_to product, :class=>  "ui blue circular basic button" do %> <i class="unhide icon"></i> <%= "Show"  %> <% end %>
@@ -71,8 +75,13 @@
             <div class="ui dimmer">
                <div class="content">
                   <div class="center">
-                     <div>Rating :
+                     <div>
+                        <% if current_user == @user %>
+                        <%= rating_for product, "product", readonly: true, half_show: true %>
+                        <% else %>
+                        Rating :
                         <%= rating_for product, "product", :half_show => true %></div>
+                        <% end %>
                      </div>
                   </div>
                </div>
@@ -83,7 +92,11 @@
                Price : <strong class='right floated'><%= product.price %>
                   <i class="euro icon"></i> </strong>
                   <br>
+                  <% if current_user == @user %>
+                  <%= rating_for product, "product", readonly: true, half_show: true %>
+                  <% else %>
                   <strong class='right floated'><%= rating_for product, "product", :half_show => true %></strong>
+                  <% end %>
                </div>
                <div class="extra">
                   Posted : <strong class='right floated'><%= product.created_at.strftime("%d %b. %Y") %> </strong>

@@ -1,7 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<%= autocomplete_field_tag :category, params[:categories], autocomplete_category_name_products_path, {class: "search-query", placeholder: "Categories", type: "search", :full => true} %>
-
 <div class="ui card centered">
    <div class="content">
       <img class="ui avatar image" src="http://semantic-ui.com/images/avatar/large/elliot.jpg">
@@ -21,7 +19,11 @@
       Posted : <strong class='right floated'><%= @product.created_at.strftime("%d %b. %Y") %> </strong>
    </div>
    <div class="content">
+      <% if current_user.id == @product.user_id %>
+      <%= rating_for @product, "product", readonly: true, half_show: true %>
+      <% else %>
       Rating : <strong class='right floated'></strong><%= rating_for @product, "product", :half_show => true %> </strong>
+      <% end %>
    </div>
    <div class="content">
       <%= link_to @user do %> <i class="user icon"></i> <%= @user.first_name %> <%= @user.last_name %> <% end %>

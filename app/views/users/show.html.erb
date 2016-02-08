@@ -27,8 +27,12 @@
          </span>
       </div>
       <div class="extra">
+         <% if current_user.id == @product.user_id %>
+         <%= rating_for @user, "user", readonly: true, half_show: true %>
+         <% else %>
          Rating :
          <%= rating_for @user, "user", :half_show => true %>
+         <% end %>
       </div>
    </div>
 </div>
@@ -61,7 +65,13 @@
          <td><%= product.description %></td>
          <td><%= product.price %></td>
          <td>
-             <%= rating_for product, "product", :half_show => true %>
+            <% if current_user.id == @product.user_id %>
+            <%= rating_for product, "product", readonly: true, half_show: true %>
+            <% else %>
+            Rating :
+            <%= rating_for product, "product", :half_show => true %>
+            <% end %>
+
          </td>
          <td>
             <%= link_to product, :class=>  "ui blue circular basic button" do %> <i class="user icon"></i> <%= "Show"  %> <% end %>
@@ -86,8 +96,14 @@
             <div class="ui dimmer">
                <div class="content">
                   <div class="center">
-                     <div>Rating :
-                        <%= rating_for product, "product", :half_show => true %></div>
+                     <div>
+                        <% if current_user.id == @product.user_id %>
+                        <%= rating_for product, "product", readonly: true, half_show: true %>
+                        <% else %>
+                        Rating :
+                        <%= rating_for product, "product", :half_show => true %>
+                        <% end %>
+                     </div>
                      </div>
                   </div>
                </div>
@@ -102,8 +118,12 @@
                   Posted : <strong class='right floated'><%= product.created_at.strftime("%d %b. %Y") %> </strong>
                </div>
                <div class="extra">
+                  <% if current_user.id == @product.user_id %>
+                  <%= rating_for product, "product", readonly: true, half_show: true %>
+                  <% else %>
                   Rating :
                   <%= rating_for product, "product", :half_show => true %>
+                  <% end %>
                </div>
                <div class="extra">
                   <%= link_to product, :class=>  "ui blue circular basic button" do %> <i class="user icon"></i> <%= "Show"  %><% end %>
