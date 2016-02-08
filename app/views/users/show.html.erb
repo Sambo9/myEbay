@@ -27,7 +27,7 @@
          </span>
       </div>
       <div class="extra">
-         <% if current_user.id == @product.user_id %>
+         <% if current_user.id == @user.id %>
          <%= rating_for @user, "user", readonly: true, half_show: true %>
          <% else %>
          Rating :
@@ -65,7 +65,7 @@
          <td><%= product.description %></td>
          <td><%= product.price %></td>
          <td>
-            <% if current_user.id == @product.user_id %>
+            <% if current_user.id == product.user_id %>
             <%= rating_for product, "product", readonly: true, half_show: true %>
             <% else %>
             Rating :
@@ -97,7 +97,7 @@
                <div class="content">
                   <div class="center">
                      <div>
-                        <% if current_user.id == @product.user_id %>
+                        <% if current_user.id == product.user_id %>
                         <%= rating_for product, "product", readonly: true, half_show: true %>
                         <% else %>
                         Rating :
@@ -118,7 +118,7 @@
                   Posted : <strong class='right floated'><%= product.created_at.strftime("%d %b. %Y") %> </strong>
                </div>
                <div class="extra">
-                  <% if current_user.id == @product.user_id %>
+                  <% if current_user.id == product.user_id %>
                   <%= rating_for product, "product", readonly: true, half_show: true %>
                   <% else %>
                   Rating :

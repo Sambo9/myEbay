@@ -30,7 +30,7 @@
                </div>
 
                <div style="margin-bottom: 25px" class="input-group">
-                  <%= select_tag(:category_id, options_for_select(@categories), :prompt => 'Select the category', class:'ui fluid select') %>
+                  <%= f.collection_select(:category_id, @categories, :id, :name, {:prompt => 'Select a category for your product', class: 'ui fluid select'}) %>
                </div>
 
                   <div style="margin-top:10px" class="form-group">
