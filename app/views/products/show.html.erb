@@ -54,7 +54,7 @@
       <div class="content">
          <%= link_to User.find(c.user_id).first_name, user_path(c.user_id) %>
          <div class="metadata">
-            <span class="date">on <%= c.created_at.strftime("%d %b. %Y  %k:%M:%S") %></span>
+            <span class="date">on <%= c.created_at.strftime("%A %d %b. %Y  %k:%M:%S") %></span>
          </div>
          <div class="text">
             <%= c.comment %>

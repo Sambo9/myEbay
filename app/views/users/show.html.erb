@@ -37,6 +37,45 @@
    </div>
 </div>
 
+<% @commentable = @user %>
+<% @comments = @commentable.comments.recent.limit(10).all %>
+
+<div class="ui comments">
+   <h3 class="ui dividing header"> Latest Comments</h3>
+   <% @comments.each do |c| %>
+   <div class="comment">
+      <p class="avatar">
+         <%= link_to user_path(c.user_id) do %>
+         <img src="http://semantic-ui.com/images/avatar/small/elliot.jpg">
+         <% end %>
+      </p>
+      <div class="content">
+         <%= link_to User.find(c.user_id).first_name, user_path(c.user_id) %>
+         <div class="metadata">
+            <span class="date">on <%= c.created_at.strftime("%A %d %b. %Y  %k:%M:%S") %></span>
+         </div>
+         <div class="text">
+            <%= c.comment %>
+         </div>
+      </div>
+   </div>
+   <% end %>
+   <br>
+
+   <%= form_tag "/users/add_new_comment" do %>
+   <form class="ui reply form">
+      <div class="field">
+         <%= hidden_field_tag "id", @user.id %>
+         <%= text_area_tag (:comment)  %>
+      </div>
+      <div>
+         <%= button_tag(type: "submit", class: "ui blue icon button") do %>
+         <i class="icon edit"></i> Send review
+         <% end %>
+      </div>
+   </form>
+   <% end %>
+</div>
 
 <table class="ui selectable striped celled table">
    <thead>
@@ -83,6 +122,8 @@
          <% end %>
       </tbody>
    </table>
+
+
 
 
    <div class="ui special five cards">
@@ -135,5 +176,6 @@
             </div>
             <% end %>
          </div>
+         <br>
 
          <%= link_to "Back", :back, :class=>  "ui blue basic button" %>

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
    match "/products/add_new_comment" => "products#add_new_comment", :as => "add_new_comment_to_products", :via => [:post]
+   match "/users/add_new_comment" => "users#add_new_comment", :as => "add_new_comment_to_users", :via => [:post]
    post '/rate' => 'rater#create', :as => 'rate'
 
    resources :categories do
