@@ -3,7 +3,7 @@
    Categories
 </h2>
 
-
+<%= will_paginate @collection, renderer: BootstrapPagination::Rails, inner_window: 1, outter_window: 1 %>
 
 <table class="ui selectable striped celled table">
    <thead>
@@ -17,9 +17,12 @@
    <tbody>
       <% @categories.order('name').each do |category| %>
       <tr>
-         <td><%= link_to Category.find(category.id).name, category_path(category.id) %></td>
          <td>
-
+            <h4>
+               <%= link_to category.name, category_list_path(category.name) %>
+            </h4>
+         </td>
+         <td>
             <%= link_to new_category_path(:parent_id => category), class:'ui basic circular button blue' do %> <i class="plus icon"></i> <%= "Add SubCategory"  %><% end %>
          <% if current_user != nil && current_user.role == 'ADMIN' %>
             <%= link_to edit_category_path(category), :class=>  "ui green basic circular button" do %> <i class="edit icon"></i> <%= "Edit"  %> <% end %>
@@ -34,3 +37,5 @@
    <p>
       <%= link_to new_category_path, class:'button ui basic inverted blue' do %> <i class="plus icon"></i> <%= "New category"  %><% end %>
    </p>
+
+   <%= will_paginate @collection, renderer: BootstrapPagination::Rails, inner_window: 1, outter_window: 1 %>

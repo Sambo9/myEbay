@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-
+gem 'social-share-button'
 gem 'rails-jquery-autocomplete', '~> 1.0', '>= 1.0.3'
 gem 'acts_as_commentable'
 gem 'ancestry', '~> 2.1'
