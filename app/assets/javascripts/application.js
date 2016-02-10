@@ -25,6 +25,14 @@
 //= require semantic-ui
 //= require bootstrap-sprockets
 
+//= require algolia/v3/algoliasearch.min
+
+var client = algoliasearch(ApplicationID, Search-Only-API-Key);
+var index = client.initIndex('YourIndexName');
+index.search('something', function(success, hits) {
+  console.log(success, hits)
+}, { hitsPerPage: 10, page: 0 });
+
 
 
 $( document ).ready(function(){

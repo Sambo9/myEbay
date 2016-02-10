@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem "algoliasearch-rails"
 gem 'social-share-button'
 gem 'rails-jquery-autocomplete', '~> 1.0', '>= 1.0.3'
 gem 'acts_as_commentable'

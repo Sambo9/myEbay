@@ -40,13 +40,13 @@
             </ul>
          </li> -->
       </ul>
-      <form class="navbar-form navbar-left" role="search">
+<ul class="nav navbar-nav navbar-left">
          <div class="ui icon input">
             <input type="text" placeholder="Search...">
             <i class="search icon"></i>
          </div>
          <button type="submit" class="button ui basic inverted">Search</button>
-      </form>
+</ul>
 
       <ul class="nav navbar-nav navbar-right">
          <% if user_signed_in? %>
@@ -57,7 +57,7 @@
                      <%= current_user.first_name %>
                      <i class="dropdown icon ui inverted item"></i>
                      <div class="menu ui">
-                        <div class="item"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'ui inverted' %></div>
+                        <div class="item"><%= link_to 'Edit profile', edit_user_path(id: current_user.id), :class => 'ui inverted' %></div>
                         <div class="item"><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'ui inverted'  %></div>
                      </div>
                   </div>
@@ -83,6 +83,9 @@
    <%= social_share_button_tag() %>
 </div>
 
+<div>
+<%=   p User.algolia_reindex! %>
+</div>
 
 <%= yield %>
 

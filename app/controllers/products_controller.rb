@@ -7,6 +7,12 @@ class ProductsController < ApplicationController
    # GET /products
    # GET /products.json
    def index
+      @p = Product.all
+      if params[:search]
+         @p = Product.search(params[:search]).order("created_at DESC")
+      else
+         @p = Product.all.order('created_at DESC')
+      end
       @products = Product.paginate(:page => params[:page], :per_page => 9)
    end
 
@@ -84,7 +90,7 @@ class ProductsController < ApplicationController
       begin
          @product = Product.find(params[:id])
       rescue
-         render(:file => File.join(Rails.root, 'public/404.html'), :status => 403, :layout => true)
+         render(:file => File.join(Rails.root, 'public/404.html'), :status => 404, :layout => true)
       end
    end
 

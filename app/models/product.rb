@@ -1,4 +1,8 @@
 class Product < ActiveRecord::Base
+   include AlgoliaSearch
+   algoliasearch do
+      attribute :title, :description, :price
+   end
    ratyrate_rateable "product"
    belongs_to :user
    validates :user, presence: true
@@ -10,4 +14,6 @@ class Product < ActiveRecord::Base
    validates :description, :presence => true, :length => {minimum: 2}, :allow_blank => true
    validates :user_id, numericality: {greater_than: 0}, presence: true
    validates :category_id, presence: true
+
 end
+Product.reindex!

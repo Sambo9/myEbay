@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
    before_action :set_category, only: [:show, :edit, :update, :destroy]
    before_action :authorize_create, only: [:new]
+   before_action :admin_access, only:[:show, :new, :edit, :update, :destroy]
 
    autocomplete :category, :name, full: true
 
@@ -87,6 +88,11 @@ class CategoriesController < ApplicationController
    def authorize_create
       if !( current_user != nil)
          redirect_to '/users/sign_in', alert: 'You must be logged in first'
+      end
+   end
+   def admin_access
+      if !( current_user != nil && current_user.role == 'ADMIN')
+         render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => true)
       end
    end
 end
