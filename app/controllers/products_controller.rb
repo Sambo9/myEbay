@@ -92,7 +92,7 @@ class ProductsController < ApplicationController
 
       if params[:max_bid].to_i >= @product.price
          respond_to do |format|
-            format.html { redirect_to @product, notice: 'Buy it now' }
+            format.html { redirect_to @product, notice: 'Purchased' }
             format.json { render :show, status: :ok, location: @product }
          end
       elsif params[:max_bid].to_i < @product.current_price
@@ -105,7 +105,10 @@ class ProductsController < ApplicationController
          bid.product_id = @product.id
          bid.user_id = current_user.id
          bid.save
-         redirect_to :action => :show, :id => @product
+         respond_to do |format|
+            format.html { redirect_to @product, notice: 'Your bid has been placed' }
+            format.json { render :show, status: :ok, location: @product }
+         end
       end
    end
 

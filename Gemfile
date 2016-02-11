@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'jquery-countdown-rails', '~> 2.0', '>= 2.0.2'
 gem 'jquery-datetimepicker-rails'
 gem 'hogan_assets'
 gem "algoliasearch-rails"

@@ -31,6 +31,16 @@
 
 //= require jquery.datetimepicker
 
+//= require jquery.countdown
+
+
+$( document ).ready(function(){
+   $("#countdown").countdown(
+      {
+         until : new Date($('#ending_time').text())
+   });
+});
+
 
 $( document ).ready(function(){
    $('#datetimepicker').datetimepicker({
