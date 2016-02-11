@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-   
+
+  resources :bids
+  match "/products/add_new_bid" => "products#add_new_bid", :as => "add_new_bid_to_products", :via => [:post]
    match "/products/add_new_comment" => "products#add_new_comment", :as => "add_new_comment_to_products", :via => [:post]
    match "/users/add_new_comment" => "users#add_new_comment", :as => "add_new_comment_to_users", :via => [:post]
    post '/rate' => 'rater#create', :as => 'rate'

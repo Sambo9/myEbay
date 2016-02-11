@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'jquery-datetimepicker-rails'
+gem 'hogan_assets'
 gem "algoliasearch-rails"
 gem 'social-share-button'
 gem 'rails-jquery-autocomplete', '~> 1.0', '>= 1.0.3'

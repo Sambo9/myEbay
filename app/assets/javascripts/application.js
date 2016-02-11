@@ -26,17 +26,42 @@
 //= require bootstrap-sprockets
 
 //= require algolia/v3/algoliasearch.min
+//= require algolia/typeahead.jquery
+//= require hogan
 
-var client = algoliasearch(ApplicationID, Search-Only-API-Key);
-var index = client.initIndex('YourIndexName');
-index.search('something', function(success, hits) {
-  console.log(success, hits)
-}, { hitsPerPage: 10, page: 0 });
-
+//= require jquery.datetimepicker
 
 
 $( document ).ready(function(){
-$('.special.cards .image').dimmer({
-  on: 'hover'
+   $('#datetimepicker').datetimepicker({
+      format:'d.m.Y H:i',
+      inline:true,
+      lang:'fr',
+      minDate:'0',//yesterday is minimum date(for today use 0 or -1970/01/01)
+      maxDate:'+1970/01/09'
+   });
 });
+
+
+
+var client = algoliasearch("HEXW8VQKX5", "e6b143f8d3534f72a621ec5d05eb70c6"); // public credentials
+
+$(document).ready(function() {
+   var template = Hogan.compile("<div class='ui message inverted'>{{{_highlightResult.title.value}}}</div>");
+   $('input#search_product').typeahead(null, {
+      highligh: false,
+      source: client.initIndex('Product').ttAdapter(),
+      displayKey: 'title',
+      templates: {
+         suggestion: function(hit) {
+            return template.render(hit);
+         }
+      }
+   });
+});
+
+$( document ).ready(function(){
+   $('.special.cards .image').dimmer({
+      on: 'hover'
+   });
 });

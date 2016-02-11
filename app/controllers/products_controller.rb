@@ -20,6 +20,7 @@ class ProductsController < ApplicationController
    # GET /products/1.json
    def show
       @user = User.find(@product.user_id)
+      @bids = Bid.where(product_id: @product.id).order('max_bid DESC')
    end
 
    # GET /products/new
@@ -37,6 +38,7 @@ class ProductsController < ApplicationController
    # POST /products.json
    def create
       @product = Product.new(product_params)
+      @product.current_price = @product.starting_price
       @categories = Category.all
 
       respond_to do |format|
@@ -84,6 +86,29 @@ class ProductsController < ApplicationController
       redirect_to :action => :show, :id => @product
    end
 
+   def add_new_bid
+      @product = Product.find(params[:id])
+      bid = Bid.create
+
+      if params[:max_bid].to_i >= @product.price
+         respond_to do |format|
+            format.html { redirect_to @product, notice: 'Buy it now' }
+            format.json { render :show, status: :ok, location: @product }
+         end
+      elsif params[:max_bid].to_i < @product.current_price
+         respond_to do |format|
+            format.html { redirect_to @product, alert: 'Your bid must be higher than the starting price !' }
+            format.json { render :show, status: :ok, location: @product }
+         end
+      else
+         bid.max_bid = params[:max_bid]
+         bid.product_id = @product.id
+         bid.user_id = current_user.id
+         bid.save
+         redirect_to :action => :show, :id => @product
+      end
+   end
+
    private
    # Use callbacks to share common setup or constraints between actions.
    def set_product
@@ -96,7 +121,7 @@ class ProductsController < ApplicationController
 
    # Never trust parameters from the scary internet, only allow the white list through.
    def product_params
-      params.require(:product).permit(:title, :description, :price, :category_id).merge(:user_id => current_user.id);
+      params.require(:product).permit(:title, :description, :price, :category_id, :starting_price, :end_date).merge(:user_id => current_user.id);
    end
 
    def authorize_user

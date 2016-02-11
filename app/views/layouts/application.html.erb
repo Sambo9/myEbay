@@ -40,13 +40,14 @@
             </ul>
          </li> -->
       </ul>
-<ul class="nav navbar-nav navbar-left">
+      <ul class="nav navbar-nav navbar-left">
          <div class="ui icon input">
-            <input type="text" placeholder="Search...">
+            <input name="email" placeholder="Search product" id="search_product" />
+
             <i class="search icon"></i>
          </div>
          <button type="submit" class="button ui basic inverted">Search</button>
-</ul>
+      </ul>
 
       <ul class="nav navbar-nav navbar-right">
          <% if user_signed_in? %>
@@ -84,7 +85,7 @@
 </div>
 
 <div>
-<%=   p User.algolia_reindex! %>
+   <%=   p User.algolia_reindex! %>
 </div>
 
 <%= yield %>

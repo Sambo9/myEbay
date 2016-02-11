@@ -1,3 +1,5 @@
+<!-- PRODUCT DETAILS -->
+
 <div class="ui card centered">
    <div class="content">
       <img class="ui avatar image" src="http://random-octodex.herokuapp.com/random">
@@ -7,8 +9,9 @@
       <img src="<%= @product.image %>" />
    </div>
    <div class="content">
-      Price :
+      Buy it now
       <span class="right floated">
+         Price :
          <%= @product.price %>
          <i class="euro icon"></i>
       </span>
@@ -35,16 +38,106 @@
    <% end %>
 </div>
 
+<!-- ================================== -->
+<!-- ========= HIGHEST BIDDER ========= -->
+<!-- ================================== -->
+
+<div class="ui cards">
+   <div class="card">
+      <div class="content">
+         <img class="right floated mini ui image" src="http://random-octodex.herokuapp.com/random">
+         <div class="header">
+            <%= User.where(id: @bids[0].user_id)[0].first_name %>
+         </div>
+         <div class="meta">
+            Current highest bidder
+         </div>
+         <div class="description">
+            Current price : <h4><strong><%= @product.current_price %> <i class="euro icon"></i></strong></h4>
+         </div>
+      </div>
+      <div class="extra content">
+         <div class="ui two buttons">
+            <div class="ui basic green button">Approve</div>
+            <div class="ui basic red button">Decline</div>
+         </div>
+      </div>
+   </div>
+</div>
+
 <div>
    <%= link_to "Back", :back, :class=>  "ui blue inverted basic button" %>
 </div>
 
 
+
+<table class="ui selectable striped celled table">
+   <thead>
+      <th>
+         Starting price
+      </th>
+      <th>
+         Buy it now
+      </th>
+      <th>
+         Current price
+      </th>
+   </thead>
+   <tbody>
+      <tr>
+         <td>
+            <%= @product.starting_price %> <i class="euro icon"></i>
+         </td>
+         <td>
+            <%= @product.price %> <i class="euro icon"></i>
+         </td>
+         <td>
+            <% if @product.current_price != nil %>
+            <% if @bids.length > 1 %>
+            <% @product.update_attributes(current_price: @bids[1].max_bid+1) %>
+            <%= @product.current_price %> <i class="euro icon"></i>
+            <% elsif @bids.length == 1 %>
+            <%= @product.current_price + 1%> <i class="euro icon"></i>
+            <% else %>
+            <%= @product.current_price %> <i class="euro icon"></i>
+            <%end %>
+            <% else %>
+            No auction yet
+            <% end %>
+         </td>
+      </tr>
+   </tbody>
+</table>
+
+<!-- =========================== -->
+<!-- ========= BIDDING ========= -->
+<!-- =========================== -->
+
+<% if current_user != nil %>
+<h3 class="ui dividing header">Place your bid</h3>
+<%= form_tag "/products/add_new_bid" do %>
+<form class="ui reply form">
+   <div class="field">
+      <%= hidden_field_tag "id", @product.id %>
+      <%= text_field_tag (:max_bid)  %>
+   </div>
+   <div>
+      <%= button_tag(type: "submit", class: "ui blue icon button") do %>
+      Bid
+      <% end %>
+   </div>
+</form>
+<% end %>
+<% end %>
+<!-- ============================ -->
+<!-- ========= COMMENTS ========= -->
+<!-- ============================ -->
+
 <% @commentable = @product %>
 <% @comments = @commentable.comments.recent.limit(10).all %>
 
+<h3 class="ui dividing header"> Latest Comments</h3>
 <div class="ui comments">
-   <h3 class="ui dividing header"> Latest Comments</h3>
    <% @comments.each do |c| %>
    <% if c != nil %>
    <div class="comment">
