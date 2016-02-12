@@ -37,10 +37,23 @@
    </div>
 </div>
 
+<!-- ================================ -->
+<!-- ========= NUMBER VIEWS ========= -->
+<!-- ================================ -->
+
+<div class="ui labeled button" tabindex="0">
+  <div class="ui teal button">
+    <i class="unhide icon"></i> Visitors
+  </div>
+  <div class="ui basic teal left pointing label">
+    <%= "#{@user.impressionist_count}" %> views
+</div>
+</div>
+
 <!-- ============================ -->
 <!-- ========= AUCTIONS ========= -->
 <!-- ============================ -->
-
+<% if @bids_user.length > 0 %>
 <h3 class="ui dividing header">Auctions</h3>
 <% @bids_user.order('end_date DESC').each do |b| %>
    <% @bids_product = Product.where(id: b.product_id) %>
@@ -88,6 +101,7 @@
    <% end %>
    <% end %>
 <% end %>
+<% end %>
 
 
 <!-- ============================ -->
@@ -128,7 +142,7 @@
          <%= text_area_tag (:comment)  %>
       </div>
       <div>
-         <%= button_tag(type: "submit", class: "ui blue icon button") do %>
+         <%= button_tag(type: "submit", class: "ui teal icon button") do %>
          <i class="icon edit"></i> Send review
          <% end %>
       </div>

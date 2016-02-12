@@ -34,16 +34,34 @@
    </div>
    <% if current_user != nil && current_user.role == 'ADMIN' || current_user != nil && current_user.id == @product.user_id %>
    <div class="extra">
-      <%= link_to edit_product_path(@product), :class=>  "ui blue basic circular button" do %> <i class="edit icon"></i><%= "Edit"  %><% end %>
+      <%= link_to edit_product_path(@product), :class=>  "ui green basic circular button" do %> <i class="edit icon"></i><%= "Edit"  %><% end %>
       <%= link_to @product, method: :delete, data: { confirm: 'Are you sure?' }, :class=>  "ui red basic circular button" do %> <i class="trash outline icon"></i><%= "Del"  %><% end %>
    </div>
    <% end %>
 </div>
 
+<!-- ================================ -->
+<!-- ========= NUMBER VIEWS ========= -->
+<!-- ================================ -->
+
+<div class="ui labeled button" tabindex="0">
+  <div class="ui teal button">
+    <i class="unhide icon"></i> Visitors
+  </div>
+  <div class="ui basic teal left pointing label">
+    <%= "#{@product.impressionist_count}" %> views
+</div>
+</div>
+<p>
+   <br>
+</p>
+
+
 <!-- ================================== -->
 <!-- ========= HIGHEST BIDDER ========= -->
 <!-- ================================== -->
 
+<% if @bids.length >0 %>
 <div class="ui cards">
    <div class="card">
       <div class="content">
@@ -53,7 +71,7 @@
       <div class="content">
          <img class="right floated mini ui image" src="http://random-octodex.herokuapp.com/random">
          <div>
-            <h4><%= User.where(id: @bids[0].user_id)[0].first_name %></h4>
+            <h4><%= link_to User.where(id: @bids[0].user_id)[0].first_name, User.where(id: @bids[0].user_id)[0] %></h4>
          </div>
       </div>
       <div class="content">
@@ -73,30 +91,40 @@
             </p>
          </div>
       </div>
+      <% if @product.end_date > Time.now %>
       <div class='content'>
          <div class='red basic ui label'>Remaining time
          </div>
          <div id="countdown"></div>
       </div>
+      <% else %>
+      <div class='content'>
+         <div class='red basic ui label'>Auction ended
+         </div>
+      </div>
+      <% end %>
    </div>
 </div>
+<% end %>
 
 <!-- =========================== -->
 <!-- ========= BIDDING ========= -->
 <!-- =========================== -->
 
-<% if current_user != nil %>
+<% if current_user != nil && @product.end_date != nil %>
+<% if @product.end_date > Time.now %>
 <h3 class="ui dividing header">Place your bid</h3>
 <%= form_tag "/products/add_new_bid" do %>
 <form class="ui reply form">
    <div class="field">
       <%= hidden_field_tag "id", @product.id %>
       <%= text_field_tag (:max_bid)  %>
-      <%= button_tag(type: "submit", class: "ui green icon button") do %>
+      <%= button_tag(type: "submit", class: "ui teal icon button") do %>
       Bid
       <% end %>
    </div>
 </form>
+<% end %>
 <% end %>
 <% end %>
 
@@ -178,7 +206,7 @@
          <%= text_area_tag (:comment)  %>
       </div>
       <div>
-         <%= button_tag(type: "submit", class: "ui blue icon button") do %>
+         <%= button_tag(type: "submit", class: "ui teal icon button") do %>
          <i class="icon edit"></i> Send review
          <% end %>
       </div>

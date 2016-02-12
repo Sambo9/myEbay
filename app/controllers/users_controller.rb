@@ -2,6 +2,8 @@
 class UsersController < ApplicationController
    before_action :set_user, only: [:show, :edit, :update, :destroy]
    before_action :authorize_user, only: [:edit, :update, :destroy]
+   impressionist  :actions=>[:show]
+
    def show
       # @user = User.find(params[:id])
       @products = Product.where(user_id: @user)

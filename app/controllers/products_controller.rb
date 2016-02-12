@@ -2,13 +2,11 @@ class ProductsController < ApplicationController
    before_action :set_product, only: [:show, :edit, :update, :destroy]
    before_action :authorize_user, only: [:edit, :update, :destroy]
    before_action :authorize_create, only: [:new]
+   impressionist  :actions=>[:show]
 
    def index
-      @p = Product.all
       if params[:search]
-         @p = Product.search(params[:search]).order("created_at DESC")
-      else
-         @p = Product.all.order('created_at DESC')
+         @p = Product.search(params[:search])
       end
       @products = Product.paginate(:page => params[:page], :per_page => 9)
    end
@@ -86,6 +84,7 @@ class ProductsController < ApplicationController
       bid = Bid.create
 
       if params[:max_bid].to_i >= @product.price
+         @product.update_attributes(end_date: Time.now)
          respond_to do |format|
             format.html { redirect_to @product, notice: 'Purchased' }
             format.json { render :show, status: :ok, location: @product }

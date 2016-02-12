@@ -3,6 +3,7 @@ class Product < ActiveRecord::Base
    algoliasearch do
       attribute :title, :description, :price
    end
+   is_impressionable
    ratyrate_rateable "product"
    belongs_to :user
    validates :user, presence: true

@@ -8,7 +8,7 @@
 </head>
 <body>
 
-   <nav class="navbar navbar-default navbar-inverse" role="navigation">
+   <nav class="navbar navbar-default navbar-inverse ui fixed" role="navigation">
       <div class="container-fluid">
          <!-- Brand and toggle get grouped for better mobile display -->
          <div class="navbar-header">
@@ -35,12 +35,15 @@
                </li>
                <li><a href="/categories">Categories</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-left">
-               <div class="ui icon input">
-                  <input name="email" placeholder="Search product" id="search_product" />
-                  <i class="search icon"></i>
-               </div>
-                  <button type="submit" class="button ui basic inverted">Search</button>
+
+            <ul class="nav navbar-nav">
+                  <%= form_tag(products_path, :method => "get", id: "search_product") do %>
+                  <div class='ui icon input'>
+                     <%= text_field_tag :search, params[:search], placeholder: "Search product", id:'search_product', class: 'form-control' %>
+                     <i class="search icon"></i>
+                  </div>
+                  <%= submit_tag "Search", class:'inverted ui basic button'%>
+                  <% end %>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -76,10 +79,6 @@
 
       <div>
          <%= social_share_button_tag() %>
-      </div>
-
-      <div>
-         <%=   p User.algolia_reindex! %>
       </div>
 
       <%= yield %>

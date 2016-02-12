@@ -41,7 +41,6 @@ $( document ).ready(function(){
    });
 });
 
-
 $( document ).ready(function(){
    $('#datetimepicker').datetimepicker({
       format:'d.m.Y H:i',
@@ -51,8 +50,6 @@ $( document ).ready(function(){
       maxDate:'+1970/01/09'
    });
 });
-
-
 
 var client = algoliasearch("HEXW8VQKX5", "e6b143f8d3534f72a621ec5d05eb70c6"); // public credentials
 
@@ -69,6 +66,7 @@ $(document).ready(function() {
       }
    });
 });
+
 
 $( document ).ready(function(){
    $('.special.cards .image').dimmer({

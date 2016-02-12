@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
    algoliasearch do
       attribute :first_name, :last_name, :email, :address
    end
+   is_impressionable
    ratyrate_rater
    ratyrate_rateable "user"
    acts_as_commentable
