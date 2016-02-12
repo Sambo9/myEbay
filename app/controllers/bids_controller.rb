@@ -1,5 +1,6 @@
 class BidsController < ApplicationController
   before_action :set_bid, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_user, only: [:show, :edit, :update, :destroy, :index, :new, :create]
 
   # GET /bids
   # GET /bids.json
@@ -71,4 +72,10 @@ class BidsController < ApplicationController
     def bid_params
       params.require(:bid).permit(:max_bid, :product_id, :user_id)
     end
+
+    def authorize_user
+      if !( current_user != nil && current_user.role == 'ADMIN')
+         render(:file => File.join(Rails.root, 'public/403.html'), :status => 403, :layout => true)
+      end
+   end
 end

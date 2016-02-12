@@ -37,11 +37,68 @@
    </div>
 </div>
 
+<!-- ============================ -->
+<!-- ========= AUCTIONS ========= -->
+<!-- ============================ -->
+
+<h3 class="ui dividing header">Auctions</h3>
+<% @bids_user.order('end_date DESC').each do |b| %>
+   <% @bids_product = Product.where(id: b.product_id) %>
+   <% @bids_product.each do |p| %>
+   <% if p.end_date > Time.now %>
+   <div class='basic ui green label'>
+      In progress
+   </div>
+   <table class="ui green selectable striped celled table">
+      <thead>
+         <th>Product</th>
+         <th>Current price</th>
+         <th>My auction</th>
+         <th>Auction end</th>
+      </thead>
+      <tbody>
+         <tr>
+            <td><%= p.title %></td>
+            <td><%= p.current_price %></td>
+            <td><%= b.max_bid %></td>
+            <td><%= p.end_date.strftime("%d %b. %Y") %></td>
+         </tr>
+      </tbody>
+   </table>
+   <% else %>
+   <div class='basic ui red label'>
+      ended
+   </div>
+   <table class="ui red selectable striped celled table">
+      <thead>
+         <th>Product</th>
+         <th>Current price</th>
+         <th>My auction</th>
+         <th>Auction end</th>
+      </thead>
+      <tbody>
+         <tr>
+            <td><%= p.title %></td>
+            <td><%= p.current_price %></td>
+            <td><%= b.max_bid %></td>
+            <td><%= p.end_date.strftime("%d %b. %Y") %></td>
+         </tr>
+      </tbody>
+   </table>
+   <% end %>
+   <% end %>
+<% end %>
+
+
+<!-- ============================ -->
+<!-- ========= COMMENTS ========= -->
+<!-- ============================ -->
+
 <% @commentable = @user %>
 <% @comments = @commentable.comments.recent.limit(10).all %>
 
+<h3 class="ui dividing header"> Latest Comments</h3>
 <div class="ui comments">
-   <h3 class="ui dividing header"> Latest Comments</h3>
    <% @comments.each do |c| %>
    <div class="comment">
       <p class="avatar">
@@ -80,6 +137,7 @@
    <% end %>
 </div>
 
+<h3 class="ui dividing header"><%= @user.first_name %>'s products</h3>
 <table class="ui selectable striped celled table">
    <thead>
       <tr>
@@ -126,10 +184,11 @@
       </tbody>
    </table>
 
+   <!-- ==================================== -->
+   <!-- ========= Display in cards ========= -->
+   <!-- ==================================== -->
 
-
-
-   <div class="ui special five cards">
+   <div class="ui special three cards">
       <% @products.order('created_at').each do |product| %>
       <div class="ui card">
          <div class="extra">

@@ -5,6 +5,7 @@ class UsersController < ApplicationController
    def show
       # @user = User.find(params[:id])
       @products = Product.where(user_id: @user)
+      @bids_user = Bid.where(user_id: @user.id)
    end
    def index
       @users = User.paginate(:page => params[:page], :per_page => 9)
@@ -32,6 +33,10 @@ class UsersController < ApplicationController
          format.json { head :no_content }
       end
    end
+
+   # ========================
+   # ========= BIDS =========
+   # ========================
 
    def add_new_comment
       @user = User.find(params[:id])

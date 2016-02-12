@@ -5,6 +5,11 @@
 
 <%= will_paginate @collection, renderer: BootstrapPagination::Rails, inner_window: 1, outter_window: 1 %>
 
+<!-- ==================================== -->
+<!-- ========= Display in table ========= -->
+<!-- ==================================== -->
+
+
 <table class="ui selectable striped celled table">
    <thead>
       <tr>
@@ -41,8 +46,17 @@
 
    <%= will_paginate @collection, renderer: BootstrapPagination::Rails, inner_window: 1, outter_window: 1 %>
 
+   <!-- ================================ -->
+   <!-- ========= List of bids ========= -->
+   <!-- ================================ -->
 
-   <div class="ui special five cards">
+   
+
+   <!-- ==================================== -->
+   <!-- ========= Display in cards ========= -->
+   <!-- ==================================== -->
+
+   <div class="ui special three cards">
       <% @users.order('last_name').each do |user| %>
       <div class="card">
          <div class="blurring dimmable image">

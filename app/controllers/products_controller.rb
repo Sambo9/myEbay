@@ -3,9 +3,6 @@ class ProductsController < ApplicationController
    before_action :authorize_user, only: [:edit, :update, :destroy]
    before_action :authorize_create, only: [:new]
 
-
-   # GET /products
-   # GET /products.json
    def index
       @p = Product.all
       if params[:search]
@@ -16,26 +13,20 @@ class ProductsController < ApplicationController
       @products = Product.paginate(:page => params[:page], :per_page => 9)
    end
 
-   # GET /products/1
-   # GET /products/1.json
    def show
       @user = User.find(@product.user_id)
       @bids = Bid.where(product_id: @product.id).order('max_bid DESC')
    end
 
-   # GET /products/new
    def new
       @product = Product.new
       @categories = Category.all
    end
 
-   # GET /products/1/edit
    def edit
       @categories = Category.all
    end
 
-   # POST /products
-   # POST /products.json
    def create
       @product = Product.new(product_params)
       @product.current_price = @product.starting_price
@@ -52,8 +43,6 @@ class ProductsController < ApplicationController
       end
    end
 
-   # PATCH/PUT /products/1
-   # PATCH/PUT /products/1.json
    def update
       @categories = Category.all
       respond_to do |format|
@@ -67,8 +56,6 @@ class ProductsController < ApplicationController
       end
    end
 
-   # DELETE /products/1
-   # DELETE /products/1.json
    def destroy
       @product.destroy
       respond_to do |format|
@@ -76,6 +63,10 @@ class ProductsController < ApplicationController
          format.json { head :no_content }
       end
    end
+
+   # ============================
+   # ========= COMMENTS =========
+   # ============================
 
    def add_new_comment
       @product = Product.find(params[:id])
@@ -85,6 +76,10 @@ class ProductsController < ApplicationController
       comment.save
       redirect_to :action => :show, :id => @product
    end
+
+   # ========================
+   # ========= BIDS =========
+   # ========================
 
    def add_new_bid
       @product = Product.find(params[:id])
@@ -113,7 +108,6 @@ class ProductsController < ApplicationController
    end
 
    private
-   # Use callbacks to share common setup or constraints between actions.
    def set_product
       begin
          @product = Product.find(params[:id])

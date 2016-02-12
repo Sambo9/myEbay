@@ -5,7 +5,9 @@
 
 <p id="notice"><%= notice %></p>
 
-
+<!-- ==================================== -->
+<!-- ========= Display in table ========= -->
+<!-- ==================================== -->
 
 <%= will_paginate @collection, renderer: BootstrapPagination::Rails, inner_window: 1, outter_window: 1 %>
 
@@ -59,7 +61,11 @@
 
    <%= will_paginate @collection, renderer: BootstrapPagination::Rails, inner_window: 1, outter_window: 1 %>
 
-   <div class="ui special five cards">
+   <!-- ==================================== -->
+   <!-- ========= Display in cards ========= -->
+   <!-- ==================================== -->
+
+   <div class="ui special three cards">
       <% @products.order("created_at DESC").each do |product| %>
       <% @user = User.find(product.user_id) %>
       <div class="ui card">
