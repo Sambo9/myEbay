@@ -37,13 +37,14 @@
             </ul>
 
             <ul class="nav navbar-nav">
-                  <%= form_tag(products_path, :method => "get", id: "search_product") do %>
-                  <div class='ui icon input'>
-                     <%= text_field_tag :search, params[:search], placeholder: "Search product", id:'search_product', class: 'form-control' %>
-                     <i class="search icon"></i>
-                  </div>
-                  <%= submit_tag "Search", class:'inverted ui basic button'%>
+               <%= form_tag(products_path, :method => "get", id: "search_product") do %>
+               <div class='nav ui icon input'>
+                  <%= text_field_tag :search, params[:search], placeholder: "Search product", id:'search_product' %>
+                  <%= button_tag(type: 'submit') do %>
+                  <i class="search icon blue"></i>
                   <% end %>
+               </div>
+               <% end %>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
